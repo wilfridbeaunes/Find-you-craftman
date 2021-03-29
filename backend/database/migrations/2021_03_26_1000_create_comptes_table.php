@@ -16,7 +16,7 @@ class CreateComptesTable extends Migration
         Schema::create('comptes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('email')->unique();
-            $table->text('mot_de_passe');
+            $table->text('password');
         });
     }
 

@@ -9,6 +9,10 @@ import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from './home/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { LoginComponent } from './signuser/login/login.component';
+import { SignupComponent } from './signuser/signup/signup.component';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { UserprofilComponent } from './userprofil/userprofil.component';
 
 
 @NgModule({
@@ -16,17 +20,21 @@ import { MatDialogModule } from '@angular/material/dialog';
     AppComponent,
     HomeComponent,
     DialogComponent,
+    LoginComponent,
+    SignupComponent,
+    UserprofilComponent,
 
   ],
   entryComponents:[DialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     MatDialogModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,6 +13,11 @@ import { LoginComponent } from './signuser/login/login.component';
 import { SignupComponent } from './signuser/signup/signup.component';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { UserprofilComponent } from './userprofil/userprofil.component';
+import { MapComponent } from './map/map.component';
+import { AroundMeComponent } from './around-me/around-me.component';
+import { LocationService } from './services/location.service';
+import { ResearchService } from './services/research.service';
+import { CategoriesProfessionellesService } from './services/categories-professionnelles.service';
 
 
 @NgModule({
@@ -23,6 +28,8 @@ import { UserprofilComponent } from './userprofil/userprofil.component';
     LoginComponent,
     SignupComponent,
     UserprofilComponent,
+    MapComponent,
+    AroundMeComponent,
 
   ],
   entryComponents:[DialogComponent],
@@ -36,7 +43,11 @@ import { UserprofilComponent } from './userprofil/userprofil.component';
     BrowserAnimationsModule,
     MatSnackBarModule
   ],
-  providers: [],
+  providers: [
+    LocationService,
+    ResearchService,
+    CategoriesProfessionellesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

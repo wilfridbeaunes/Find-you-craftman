@@ -1,0 +1,36 @@
+<div class="jumbotron">
+    <h1 class="display-3">Trouver un artisan </h1>
+    <hr class="my-4">
+    <div class="col-md-6 intro pull-right form">
+        <div class="form-inner">
+            <form method="POST">
+                <div style="margin:0 40px 0 15px;" class="block-holder">
+                    <div id="searchbar">
+                        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                            <div class="form-group">
+                                <p class="lead" style="margin-bottom:0;padding-bottom:0;">Secteurs d'activités</p>
+                                <select id="activite" name="act"  [ngModel]="activite" required>
+                                 <option *ngFor="let cat of categories; let i=index"  value="{{i+1}}" title="cat.titre">{{cat.titre}}</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <h2></h2>
+                                <p class="lead" style="margin-bottom:0;padding-bottom:0;">Code postal</p>
+                                <input name="cp" [ngModel]="defaultCodePostal" class="form-control" type="text" pattern="[0-9]{5}" ngModel required />
+                            </div>
+                            <div>
+                                <br>
+                                
+                                <button class="btn btn-hg btn-primary" [disabled]="f.invalid" type="submit" style="background-color:#47566a;">Research</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<app-map [codePostal]="codePostal" [activite]="activite"></app-map>
+<br>

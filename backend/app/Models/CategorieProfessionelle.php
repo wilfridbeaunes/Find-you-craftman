@@ -17,7 +17,7 @@ class CategorieProfessionelle extends Model
         'titre', 'description',
     ];
     public function professions(){
-        return $this->belongsToMany(Artisan::class, 'profession_artisan', 'categorie_pro_id', 'profession_id');
+        return $this->belongsToMany(Artisan::class, 'profession_artisan', 'categorie_pro_id', 'artisan_id');
     }
 
 }

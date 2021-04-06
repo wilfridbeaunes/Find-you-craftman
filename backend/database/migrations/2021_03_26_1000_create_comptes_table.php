@@ -13,13 +13,15 @@ class CreateComptesTable extends Migration
      */
     public function up()
     {
-        Schema::create('comptes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->text('email')->unique();
-            $table->text('password');
-        });
+        if(!Schema::hastable('comptes')){
+            Schema::create('comptes', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->text('email')->unique();
+                $table->text('password');
+            });
+        }
+        
     }
-
     /**
      * Reverse the migrations.
      *

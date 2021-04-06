@@ -14,7 +14,7 @@ class Travaux extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'date_debut', 'date_fin', 'objectif', 'biographie', 'image_profil',
+        'date_debut', 'date_fin', 'objectif', 'biographie', 'image_profil','artisan_id'
     ];
 
     public function artisan()

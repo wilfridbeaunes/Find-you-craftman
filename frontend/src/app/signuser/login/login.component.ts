@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar) { }
 
-  //even when authentifation is fasle
+  //even when authentifation is fasle or true
   openSnackBar(message: string, action: string) {
       this._snackBar.open(message, action, {
         duration: 3000,

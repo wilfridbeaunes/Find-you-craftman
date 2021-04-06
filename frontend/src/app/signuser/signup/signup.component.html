@@ -1,1 +1,90 @@
-<p>signup works!</p>
+
+<form >
+<!-- background-->
+    <form  class="background " (submit)="submit()" method="POST">
+        <div class="formdiv">
+            <h1 class="text">Une solution simple pour développer votre activité</h1>
+            <h1 class="text"><strong>Inscrivez-vous</strong> </h1>
+                <div class="card bg-secondary mb-3">
+                    <mat-horizontal-stepper>
+                        <mat-step [stepControl]="firstFormGroup">
+                          <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Votre entreprise</ng-template>
+                            <div class="container" >
+                                <div class="row">
+                                    <div class="mat-form-field col-6" >
+                                        <a class="mat-label">Nom</a>
+                                        <input type="text" class="form-control" type="text" formControlName="companyName" placeholder="Entrée le nom de votre entreprise"  required > 
+                                    </div>
+                                    <div class="mat-form-field col-6" >
+                                        <a class="mat-label">Profession</a>
+                                        <input type="text" class="form-control" type="text" formControlName="job" placeholder="Entrée le nom de votre profession"  required > 
+                                    </div>
+                                </div>
+                                <div class="mat-form-field" >
+                                    <a class="mat-label">Adresse Postale</a>
+                                    <input type="text" class="form-control" placeholder="Entrer l'adresse postale de l'entreprise" formControlName="adresse" >
+                                </div>
+                                <div>
+                                <h1></h1>
+                                <button mat-button matStepperNext>Suivant</button>
+                                </div>
+                            </div>
+                          </form>
+                        </mat-step>
+                    
+                        <mat-step [stepControl]="secondFormGroup" label="Vos informations">
+                          <form [formGroup]="secondFormGroup">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="mat-form-field col-6" >
+                                        <a class="mat-label">Nom</a>
+                                        <input class="form-control" formControlName="nom" placeholder="Entrée votre nom" required>
+                                    </div>
+                                    <div class="mat-form-field col-6" >
+                                        <a class="mat-label">Prenom</a>
+                                        <input type="text" class="form-control" formControlName="prenom" placeholder="Entrée votre prénom" required > 
+                                    </div>
+                                </div>
+                                <div class="mat-form-field" >
+                                    <a class="mat-label">Email</a>
+                                    <input type="email" class="form-control"  formControlName="email" placeholder="Entrée votre email" required > 
+                                </div>
+                                <div class="mat-form-field" >
+                                    <a class="mat-label">Mot de passe</a>
+                                    <input type="password" class="form-control" formControlName="password"  placeholder="Entrée un mot de passe" required > 
+                                </div>
+                                <div class="mat-form-field" >
+                                    <a class="mat-label">Numero télephone</a>
+                                    <input type="number" class="form-control" formControlName="number" placeholder="Entrée votre numéro de téléphone (format 0612345678)" required> 
+                                </div>
+                    
+                                <div>
+                                <h1></h1>
+                                <button mat-button matStepperPrevious>Retour</button>
+                                <button mat-button matStepperNext>Suivant</button>
+                                </div>
+                            </div>
+                          </form>
+                    
+                        </mat-step>
+                    
+                        <mat-step>
+                            <div class="container">
+                                <ng-template matStepLabel>Terminer</ng-template>
+                                <h1>L'ensemble de vos informations saisi ont été pris en compte </h1>
+                                <p>Veuillez appuyer sur continuer pour vous connecter</p>
+                                <div>
+                                  <button mat-button matStepperPrevious>Retour</button>
+                                  <button mat-button class="btn btn-primary btn-block" >Continuer</button>
+                                </div>
+                            </div>
+                        </mat-step>
+                    </mat-horizontal-stepper>
+                      
+                </div>
+                
+        </div>
+    </form>
+</form>
+

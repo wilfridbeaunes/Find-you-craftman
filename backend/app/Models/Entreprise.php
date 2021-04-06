@@ -14,7 +14,7 @@ class Entreprise extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'nom', 'url', 'logo',
+        'nom', 'url', 'logo','adresse_id'
     ];
 
     public function adresse(){

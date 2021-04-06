@@ -14,7 +14,7 @@ class Photo extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'logo', 
+        'logo', 'travaux_id'
     ];
 
     public function travaux(){

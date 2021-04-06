@@ -11,6 +11,9 @@ import { DialogComponent } from './home/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './signuser/login/login.component';
 import { SignupComponent } from './signuser/signup/signup.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import {MatStepperModule} from '@angular/material/stepper';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { UserprofilComponent } from './userprofil/userprofil.component';
 import { MapComponent } from './map/map.component';
@@ -41,6 +44,11 @@ import { CategoriesProfessionellesService } from './services/categories-professi
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatSnackBarModule,
+    MatMenuModule, 
+    MatButtonModule,
+    MatStepperModule,
+    
     MatSnackBarModule
   ],
   providers: [

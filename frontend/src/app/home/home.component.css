@@ -1,8 +1,10 @@
 .body {
-    min-height: 25em;
+    overflow:auto;
+    height: 30em;
     margin: auto;
-    background-position:center center;
+    background-position:center;
     background-image:url(https://www.portail-autoentrepreneur.fr/media/knowledgebase/artisan-art.jpg);
+    background-size: cover;
     
 }
 

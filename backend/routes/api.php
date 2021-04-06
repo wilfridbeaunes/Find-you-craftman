@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//route to get login data from the frontend
+Route::post('login',[Usercontroller::class, 'autentification']);
+
+//route for user data typed from the frontend
+Route::post('signup',[Usercontroller::class, 'newuser']);
+
+// //i'm using this route to catch data from database
+route::get('user/logged',[Usercontroller::class, 'userlogin']);

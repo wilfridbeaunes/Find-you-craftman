@@ -14,7 +14,7 @@ class Artisan extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'nom', 'prenom', 'telephone', 'biographie', 'image_profil',
+        'nom', 'prenom', 'telephone', 'biographie', 'image_profil','compte_id', 'entreprise_id'
     ];
 
     public function professions(){

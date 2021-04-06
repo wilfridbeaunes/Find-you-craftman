@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Usercontroller;
+use App\Http\Controllers\ResearchController;
+use App\Http\Controllers\CategorieProfessionelleController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,3 +24,9 @@ Route::post('signup',[Usercontroller::class, 'newuser']);
 
 // //i'm using this route to catch data from database
 route::get('user/logged',[Usercontroller::class, 'userlogin']);
+
+//route to get the local craftmans from database
+route::get('research',[ResearchController::class, 'getArtisans']);
+
+//route to get the list of all the "categories professsionelles"
+route::get('categories',[CategorieProfessionelleController::class, 'getAllCategories']);

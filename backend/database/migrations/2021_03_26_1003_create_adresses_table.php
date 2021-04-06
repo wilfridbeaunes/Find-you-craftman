@@ -16,6 +16,9 @@ class CreateAdressesTable extends Migration
         Schema::create('adresses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('adresse_postale');
+            $table->text('code_postal');
+            $table->float('longitude',11,8);
+            $table->float('latitude',11,8);
         });
     }
 

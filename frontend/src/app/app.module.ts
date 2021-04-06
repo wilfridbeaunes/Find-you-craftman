@@ -11,13 +11,16 @@ import { DialogComponent } from './home/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './signuser/login/login.component';
 import { SignupComponent } from './signuser/signup/signup.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { UserprofilComponent } from './userprofil/userprofil.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import {MatStepperModule} from '@angular/material/stepper';
-
-
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { UserprofilComponent } from './userprofil/userprofil.component';
+import { MapComponent } from './map/map.component';
+import { AroundMeComponent } from './around-me/around-me.component';
+import { LocationService } from './services/location.service';
+import { ResearchService } from './services/research.service';
+import { CategoriesProfessionellesService } from './services/categories-professionnelles.service';
 
 
 @NgModule({
@@ -28,16 +31,17 @@ import {MatStepperModule} from '@angular/material/stepper';
     LoginComponent,
     SignupComponent,
     UserprofilComponent,
-   
+    MapComponent,
+    AroundMeComponent,
 
   ],
   entryComponents:[DialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     MatDialogModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
@@ -45,8 +49,13 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatButtonModule,
     MatStepperModule,
     
+    MatSnackBarModule
   ],
-  providers: [],
+  providers: [
+    LocationService,
+    ResearchService,
+    CategoriesProfessionellesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -17,12 +17,6 @@ class CreateCategoriesProfessionellesTable extends Migration
             $table->bigIncrements('id');
             $table->string('titre');
             $table->text('description')->nullable();
-            $table->foreignId('artisan_id');
-            
-            $table->foreign('artisan_id')
-                  ->references('id')
-                  ->on('artisans');
-            
     });
 }
 

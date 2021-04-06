@@ -46,6 +46,9 @@ class Usercontroller extends Controller
             if($error){  // if error is null
                 $useradresse = Adresse::create([ //user company ADRESSE
                     'adresse_postale' => $request->input('adresse'), 
+                    'code_postal' => "90000", 
+                    'longitude' => 6.852898, 
+                    'latitude' => 47.639313, 
                 ]);
                 //$r=Adresse::where('adresse_postale',$request->input('adresse'))->firstOrFail()->id;
 
@@ -68,13 +71,6 @@ class Usercontroller extends Controller
                     'titre' => $request->input('job'),
                     'artisan_id' =>$userinfo->id,
                 ]);
-                $userwork = Travaux::create([ //user work released
-                    'artisan_id' =>$userinfo->id, // even if i don't store data i increment de id 
-                ]);
-                Photo::create([ //user photo add
-                    'travaux_id' =>$userwork->id, //i increment the id 
-                ]);
-                
                 if($userauth->save() && $userinfo->save() && $usercompany->save() && $useradresse->save())  return response()->json(['success'=>true,'message'=>'votre compte a été crée avec succes']);  // i save data and send success message 
                 else return response()->json(['success'=>false,'message'=>'probleme de serveur contacter le service']);  // data couldn't be save  
             }

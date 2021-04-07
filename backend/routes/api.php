@@ -20,7 +20,7 @@ use App\Http\Controllers\CategorieProfessionelleController;
 Route::post('login',[Usercontroller::class, 'autentification']);
 
 //route for user data typed from the frontend
-Route::post('signup',[Usercontroller::class, 'newuser']);
+Route::post('signup',[Usercontroller::class, 'inscription']);
 
 // //i'm using this route to catch data from database
 route::get('user/logged',[Usercontroller::class, 'userlogin']);

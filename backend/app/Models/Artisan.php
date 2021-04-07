@@ -18,7 +18,7 @@ class Artisan extends Model
     ];
 
     public function professions(){
-        return $this->belongsToMany(CategorieProfessionelle::class, 'profession_artisan', 'artisan_id', 'profession_id');
+        return $this->belongsToMany(CategorieProfessionelle::class, 'profession_artisan', 'artisan_id', 'categorie_pro_id');
     }
     public function entreprise(){
         return $this->belongsTo(Entreprise::class, 'entreprise_id');

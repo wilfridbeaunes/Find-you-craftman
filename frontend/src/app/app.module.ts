@@ -21,6 +21,7 @@ import { AroundMeComponent } from './around-me/around-me.component';
 import { LocationService } from './services/location.service';
 import { ResearchService } from './services/research.service';
 import { CategoriesProfessionellesService } from './services/categories-professionnelles.service';
+import { Authservice } from './services/auth.service';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { CategoriesProfessionellesService } from './services/categories-professi
   providers: [
     LocationService,
     ResearchService,
-    CategoriesProfessionellesService
+    CategoriesProfessionellesService,
+    Authservice
   ],
   bootstrap: [AppComponent]
 })

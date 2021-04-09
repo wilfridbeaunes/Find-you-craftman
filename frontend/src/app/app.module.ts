@@ -27,6 +27,7 @@ import { CategoriesProfessionellesService } from './services/categories-professi
 import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { Authservice } from './services/auth.service';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     LocationService,
     ResearchService,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
-    CategoriesProfessionellesService
+    CategoriesProfessionellesService,
+    Authservice
   ],
   bootstrap: [AppComponent]
 })

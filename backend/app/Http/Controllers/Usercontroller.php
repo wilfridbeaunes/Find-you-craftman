@@ -30,7 +30,7 @@ class Usercontroller extends Controller
             $error= $exception;
         }finally{
             if(!$error && password_verify($request->input('password'),$user->password)){ //in case the  user have the email typed corectly and which exist i check if the password if correct as well   
-               return response()->json(['success'=>true,'message'=>'welcom']); //message authenfification success
+               return response()->json(['success'=>true,'message'=>['msg'=>'welcom','id'=>$user->id]]); //message authenfification success
             }
             else return response()->json(['success'=>false,'message'=>'Identifiant ou mot de passe incorrect']); //i send a message with a error when email adresse don't fit with the correct password 
         }

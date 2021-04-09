@@ -14,7 +14,7 @@ class Adresse extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'adresse_postale', 'code_postal','longitude','latitude'
+        'adresse_postale', 'code_postal', 'cp_commune','longitude','latitude'
     ];
 
 }

@@ -20,9 +20,10 @@ class ResearchController extends Controller
         $activite = $request->get('act');
         $listArtisans = array();
         $categoriePro = CategorieProfessionelle::find($activite);
-        foreach ($artisans->professions()->get() as $categoriePro) {
-            $cpArtisan = $artisan->entreprise->adresse->code_postal;
-            if($codePostale == $cpArtisan){
+        foreach ($categoriePro->professions()->get() as $artisan) {
+            $cp = $artisan->entreprise->adresse->code_postal;
+            $cc = $artisan->entreprise->adresse->cp_commune;
+            if($codePostale == $cp || $codePostale == $cc){
                 $listArtisans[]=$artisan;
             }
         }

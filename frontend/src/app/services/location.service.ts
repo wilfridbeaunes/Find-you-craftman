@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import * as L from 'leaflet';
-import { Observable } from 'rxjs';
+import { observable, Observable } from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+
 
 
 @Injectable()
@@ -22,17 +24,31 @@ export class LocationService {
   }
   // extract the coordinates from a given GeoCodeJSON
   getCoordFromLocation(location){
-    console.log(location);
+    //console.log(location);
     var coordinates = {
       lat: location.features[0].geometry.coordinates[1],
       lng: location.features[0].geometry.coordinates[0],
     };
     return coordinates;
   }
+  getAutoComplete(value){
+
+    if(value!= "" && value!=" "){
+      return this.http.get("https://api-adresse.data.gouv.fr/search/?"
+      +"q="+value+"&autocomplete=1");
+    }else{
+      return this.http.get("https://api-adresse.data.gouv.fr/search/?"
+      +"q=0&autocomplete=1");
+    }
+  }
   
   //check if the response is empty 
   IsEmpty(response){
     return response.features.length==0;
+  }
+
+  getFullAdresseInformations(value){
+    return this.http.get("https://api-adresse.data.gouv.fr/search/?q="+value);
   }
   
 }

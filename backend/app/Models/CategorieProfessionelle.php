@@ -14,7 +14,7 @@ class CategorieProfessionelle extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'titre', 'description','artisan_id'
+        'titre', 'description'
     ];
     public function professions(){
         return $this->belongsToMany(Artisan::class, 'profession_artisan', 'categorie_pro_id', 'artisan_id');

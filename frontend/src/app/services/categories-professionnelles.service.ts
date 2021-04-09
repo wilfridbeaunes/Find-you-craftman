@@ -13,6 +13,9 @@ export class CategoriesProfessionellesService {
   getAllCategories(){
     return this.http.get('http://localhost:8000/api/categories');
   }
+  async getAllCategoriesAsync(){
+    return await this.http.get('http://localhost:8000/api/categories').toPromise();
+  }
 
 
 }

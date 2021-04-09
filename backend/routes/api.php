@@ -22,7 +22,10 @@ use App\Http\Controllers\UserInformationController;
 Route::post('login',[Usercontroller::class, 'autentification']);
 
 //route for user data typed from the frontend
-Route::post('signup',[Usercontroller::class, 'newuser']);
+Route::post('signup',[Usercontroller::class, 'inscription']);
+
+//route to check if a given email already exists in the database
+Route::get('exists',[Usercontroller::class, 'exists']);
 
 //route to catch data of user from database
 route::post('user/login',[UserInformationController::class, 'userConnected']);

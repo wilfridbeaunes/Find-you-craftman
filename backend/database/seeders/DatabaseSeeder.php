@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             DB::table('adresses')->insert([
                 'adresse_postale' => "$i rue random",
                 'code_postal' => "90000",
+                'cp_commune'=>"90010",
                 'longitude' => 6.85289800,
                 'latitude' => 47.639313,
             ]);

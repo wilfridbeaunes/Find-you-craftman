@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Adresse;
 use App\Models\Artisan;
 use App\Models\CategorieProfessionelle;
@@ -12,6 +13,7 @@ use App\Models\Photo;
 use App\Models\Travaux;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\QueryException;
 
 
 class Usercontroller extends Controller
@@ -33,56 +35,116 @@ class Usercontroller extends Controller
             else return response()->json(['success'=>false,'message'=>'Identifiant ou mot de passe incorrect']); //i send a message with a error when email adresse don't fit with the correct password 
         }
    }
-  
-   //new user 
-    public function newuser(Request $request ){ // function that create new user in our data base 
-        $error=null;
-        try{
-            $user=Compte::where('email',$request->input('email'))->firstOrFail(); //i wanna check if there is an user having already the email address typed
-            return $user->email;
-        }catch(ModelNotFoundException $exception){
-            $error = $exception; // if there is an user having the email given an error will be display 
-        }finally{
-            if($error){  // if error is null
-                $useradresse = Adresse::create([ //user company ADRESSE
-                    'adresse_postale' => $request->input('adresse'), 
-                ]);
-                //$r=Adresse::where('adresse_postale',$request->input('adresse'))->firstOrFail()->id;
 
-                $usercompany = Entreprise::create([ //user company information 
-                    'nom' => $request->input('companyName'), 
-                    'adresse_id'=>$useradresse->id,
-                ]);
-                $userauth = Compte::create([  //user authentification information is strore in the table compte in our database
-                    'email' => $request->input('email'), 
-                    'password' => password_hash($request->input('password'), PASSWORD_DEFAULT), //here i say i want the imput password to be hash in database for sécurity 
-                 ]);
-                $userinfo = Artisan::create([ //user basic information 
-                    'nom' => $request->input('nom'),
-                    'prenom' => $request->input('prenom'),
-                    'telephone' => $request->input('number'),
-                    'entreprise_id'=>$usercompany->id,
-                    'compte_id'=>$userauth->id,
-                ]);
-                CategorieProfessionelle::create([ //user job title
-                    'titre' => $request->input('job'),
-                    'artisan_id' =>$userinfo->id,
-                ]);
-                $userwork = Travaux::create([ //user work released
-                    'artisan_id' =>$userinfo->id, // even if i don't store data i increment de id 
-                ]);
-                Photo::create([ //user photo add
-                    'travaux_id' =>$userwork->id, //i increment the id 
-                ]);
-                
-                if($userauth->save() && $userinfo->save() && $usercompany->save() && $useradresse->save())  return response()->json(['success'=>true,'message'=>'votre compte a été crée avec succes']);  // i save data and send success message 
-                else return response()->json(['success'=>false,'message'=>'probleme de serveur contacter le service']);  // data couldn't be save  
-            }
-            else  return response()->json(['success'=>false,'message'=>'email que vous avez reseigné est déja utilisé']); // if an error i send the message email have been used 
-        }
+    public function inscription(Request $request){
+        
+        DB::beginTransaction();
+
+        $query = $this->newCompte($request->input('email'),$request->input('password'));
+        if($query[0]==null) {DB::rollback(); return response()->json( ['success'=>false,'artisan'=> null, 'error' => "error compte : $query[1]"]);}
+        $compte = $query[0];
+
+        $query = $this->newAdresse($request->input('addr'), $request->input('cp'), $request->input('cc'), $request->input('lon'), $request->input('lat'));
+        if($query[0]==null) {DB::rollback(); return response()->json(['success'=>false,'artisan'=> null, 'error' => "error adresse : $query[1]"]);}
+        $adresse = $query[0];
+
+        $query = $this->newEntreprise($request->input('entreprise'), $adresse->id);
+        if($query[0]==null) {DB::rollback(); return response()->json(['success'=>false,'artisan'=> null, 'error' => "error entreprise : $query[1]"]);}
+        $entreprise = $query[0];
+
+        $query = $this->newArtisan($request->input('nom'), $request->input('prenom'),$request->input('phone'),$request->input('bio'), $entreprise->id, $compte->id);
+        if($query[0]==null) {DB::rollback(); return response()->json(['success'=>false,'artisan'=> null, 'error' => "error artisan: $query[1]"]);}
+        $artisan = $query[0];
+
+        $query = $this->attachProfession($artisan ,$request->input('act'));
+        if($query[0]==null) {DB::rollback(); return response()->json(['success'=>false,'artisan'=> null, 'error' => "error profession: $query[1]"]);}
+        $profession = $query[0];
+        
+        DB::commit();
+
+        return response()->json(['success'=>true, 'artisan'=>$artisan, 'error'=> null]);
+    }
+
+    public function newCompte($email,$password){
+            try {
+                $compte = new Compte();
+                $compte->email = $email;
+                $compte->password = password_hash($password, PASSWORD_DEFAULT); //here i say i want the imput password to be hash in database for sécurity 
+                $compte->save();
+                return [$compte, null];
+            } catch (QueryException $e) {
+                $err = $e->getMessage();
+                return [null, "failure: $err"];
+            } 
+    }
+
+    public function newAdresse($addr,$cp,$cc, $lon , $lat){
+        try {
+            $adresse = new Adresse();
+            $adresse->adresse_postale= $addr;
+            $adresse->code_postal= $cp;
+            $adresse->cp_commune= $cc;
+            $adresse->longitude= $lon;
+            $adresse->latitude= $lat;
+            $adresse->save();
+            return [$adresse, null];
+        } catch (QueryException $e) {
+            $err = $e->getMessage();
+            return [null, "failure: $err"];
+        }    
     }
     
-
+    public function newEntreprise($nom,$addr_id){
+        try {
+            $entreprise = new Entreprise();
+            $entreprise->nom= $nom;
+            $entreprise->adresse_id= $addr_id;
+            $entreprise->save();
+            return [$entreprise, null];
+        } catch (QueryException $e) {
+            $err = $e->getMessage();
+            return [null, "failure: $err"];
+        }    
+        
     }
+
+    public function newArtisan($nom,$prenom,$phone, $bio,$entreprise_id,$compte_id){
+        try {
+            $artisan = new Artisan();
+            $artisan->nom = $nom;
+            $artisan->prenom = $prenom;
+            $artisan->telephone = $phone;
+            $artisan->biographie = $bio;
+            $artisan->entreprise_id = $entreprise_id;
+            $artisan->compte_id = $compte_id;
+            $artisan->save();
+            return [$artisan, null];
+        } catch (QueryException $e) {
+            $err = $e->getMessage();
+            return [null, "failure: $err"];
+        }
+    }
+
+    public function attachProfession($artisan, $act){
+        try{
+            $profession=CategorieProfessionelle::find($act);
+            $artisan->professions()->attach($profession->id);
+            return [$profession, null];
+        }catch(QueryException $e){
+            $err = $e->getMessage();
+            return [null, "failure:$err"];
+        }
+    }
+
+    public function exists(Request $request){
+        $email = $request->input('email');
+        try{
+            $user=Compte::where('email',$email)->get(); //i wanna check if there is an user having already the email address typed
+            return response()->json($user);
+        }catch(ModelNotFoundException $e){
+            return array();
+        }   
+    }
+
 
 }

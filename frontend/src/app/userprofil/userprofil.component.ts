@@ -13,25 +13,24 @@ export class UserprofilComponent implements OnInit {
   constructor(
     public authservice: Authservice,
     private http: HttpClient) {
-
-      if(authservice.userId != null){
-        var data={
-          id: authservice.userId
-        }
-        //with this route, I sent the ID of the user connected
-        this.http.post('http://localhost:8000/api/user/login',data ).subscribe(
-          (result:any)=>{
-              console.log(result);
-              this.user=result;
-          }, 
-          error=>{
-            console.log(error);
-          })
-      }
-     
-    }
+  }
         
   ngOnInit(): void {
+
+    if(this.authservice.userId != null){
+      var data={
+        id: ''+this.authservice.userId
+      }
+      //with this route, I sent the ID of the user connected
+      this.http.get('http://localhost:8000/api/user/login',{params:data} ).subscribe(
+        (result:any)=>{
+            console.log(result);
+            this.user=result;
+        }, 
+        error=>{
+          console.log(error);
+        })
+    }
   }
 
 

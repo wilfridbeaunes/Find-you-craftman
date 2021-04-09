@@ -81,12 +81,7 @@ class Usercontroller extends Controller
             else  return response()->json(['success'=>false,'message'=>'email que vous avez reseigné est déja utilisé']); // if an error i send the message email have been used 
         }
     }
-
-        // user Logged
-    public function userlogin(Request $request){
-        echo Compte::all();
-        //autentification($request);
-        //return $request->ompte();
+    
 
     }
 

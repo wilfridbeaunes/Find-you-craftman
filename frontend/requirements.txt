@@ -1,2 +1,3 @@
 ng add @angular/material 
+npm install @angular/material @angular/cdk @angular/animations --save
 ng add @asymmetrik/ngx-leaflet

@@ -15,14 +15,9 @@ class CreateTravauxTable extends Migration
     {
         Schema::create('travaux', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->dateTime('date_debut')->nullable();
-            $table->dateTime('date_fin')->nullable();
-            $table->text('objectif')->nullable();
-            $table->foreignId('artisan_id');
-            
-            $table->foreign('artisan_id')
-                  ->references('id')
-                  ->on('artisans');
+            $table->dateTime('date_debut');
+            $table->dateTime('date_fin');
+            $table->text('objectif');
         });
     }
 

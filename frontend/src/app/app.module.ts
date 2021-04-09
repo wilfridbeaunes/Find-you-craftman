@@ -12,7 +12,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './signuser/login/login.component';
 import { SignupComponent } from './signuser/signup/signup.component';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { UserprofilComponent } from './userprofil/userprofil.component';
@@ -20,7 +19,14 @@ import { MapComponent } from './map/map.component';
 import { AroundMeComponent } from './around-me/around-me.component';
 import { LocationService } from './services/location.service';
 import { ResearchService } from './services/research.service';
+import {MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
 import { CategoriesProfessionellesService } from './services/categories-professionnelles.service';
+import { MatButtonModule } from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { Authservice } from './services/auth.service';
 
 
@@ -49,12 +55,19 @@ import { Authservice } from './services/auth.service';
     MatMenuModule, 
     MatButtonModule,
     MatStepperModule,
-    
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatListModule,
+    MatCardModule,
+    MatAutocompleteModule
   ],
   providers: [
     LocationService,
     ResearchService,
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     CategoriesProfessionellesService,
     Authservice
   ],

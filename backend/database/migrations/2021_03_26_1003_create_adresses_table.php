@@ -17,6 +17,7 @@ class CreateAdressesTable extends Migration
             $table->bigIncrements('id');
             $table->text('adresse_postale');
             $table->text('code_postal');
+            $table->text('cp_commune');
             $table->float('longitude',11,8);
             $table->float('latitude',11,8);
         });

@@ -44,15 +44,15 @@ class Usercontroller extends Controller
         if($query[0]==null) {DB::rollback(); return response()->json( ['success'=>false,'artisan'=> null, 'error' => "error compte : $query[1]"]);}
         $compte = $query[0];
 
-        $query = $this->newAdresse($request->input('addr'), $request->input('cp'), $request->input('lon'), $request->input('lat'));
+        $query = $this->newAdresse($request->input('addr'), $request->input('cp'), $request->input('cc'), $request->input('lon'), $request->input('lat'));
         if($query[0]==null) {DB::rollback(); return response()->json(['success'=>false,'artisan'=> null, 'error' => "error adresse : $query[1]"]);}
         $adresse = $query[0];
 
-        $query = $this->newEntreprise($request->input('nom_entreprise'), $adresse->id);
+        $query = $this->newEntreprise($request->input('entreprise'), $adresse->id);
         if($query[0]==null) {DB::rollback(); return response()->json(['success'=>false,'artisan'=> null, 'error' => "error entreprise : $query[1]"]);}
         $entreprise = $query[0];
 
-        $query = $this->newArtisan($request->input('nom'), $request->input('prenom'),$request->input('phone'), $entreprise->id, $compte->id);
+        $query = $this->newArtisan($request->input('nom'), $request->input('prenom'),$request->input('phone'),$request->input('bio'), $entreprise->id, $compte->id);
         if($query[0]==null) {DB::rollback(); return response()->json(['success'=>false,'artisan'=> null, 'error' => "error artisan: $query[1]"]);}
         $artisan = $query[0];
 
@@ -78,11 +78,12 @@ class Usercontroller extends Controller
             } 
     }
 
-    public function newAdresse($adresse_postale,$code_postal, $lon , $lat){
+    public function newAdresse($addr,$cp,$cc, $lon , $lat){
         try {
             $adresse = new Adresse();
-            $adresse->adresse_postale= $adresse_postale;
-            $adresse->code_postal= $code_postal;
+            $adresse->adresse_postale= $addr;
+            $adresse->code_postal= $cp;
+            $adresse->cp_commune= $cc;
             $adresse->longitude= $lon;
             $adresse->latitude= $lat;
             $adresse->save();
@@ -107,12 +108,13 @@ class Usercontroller extends Controller
         
     }
 
-    public function newArtisan($nom,$prenom,$phone,$entreprise_id,$compte_id){
+    public function newArtisan($nom,$prenom,$phone, $bio,$entreprise_id,$compte_id){
         try {
             $artisan = new Artisan();
             $artisan->nom = $nom;
             $artisan->prenom = $prenom;
             $artisan->telephone = $phone;
+            $artisan->biographie = $bio;
             $artisan->entreprise_id = $entreprise_id;
             $artisan->compte_id = $compte_id;
             $artisan->save();
@@ -120,7 +122,7 @@ class Usercontroller extends Controller
         } catch (QueryException $e) {
             $err = $e->getMessage();
             return [null, "failure: $err"];
-        } 
+        }
     }
 
     public function attachProfession($artisan, $act){
@@ -134,12 +136,13 @@ class Usercontroller extends Controller
         }
     }
 
-    public function exists($email){
+    public function exists(Request $request){
+        $email = $request->input('email');
         try{
-            $user=Compte::where('email',$firstOrFail)->get(); //i wanna check if there is an user having already the email address typed
-            return true;
+            $user=Compte::where('email',$email)->get(); //i wanna check if there is an user having already the email address typed
+            return response()->json($user);
         }catch(ModelNotFoundException $e){
-            return false;
+            return array();
         }   
     }
 

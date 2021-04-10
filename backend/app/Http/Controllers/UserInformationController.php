@@ -23,13 +23,12 @@ class UserInformationController extends Controller
         $userartisan=Artisan::where('compte_id',$id)->firstOrFail();
         $useradresse=Adresse::where('id',$id)->firstOrFail();
         $userentreprise=Entreprise::where('adresse_id',$id)->firstOrFail();
-        $usertravaux=Travaux::where('artisan_id',$id)->firstOrFail();
-        $userphoto=Photo::where('travaux_id',$id)->firstOrFail();
         $usercatpro=CategorieProfessionelle::where('id',$id)->firstOrFail();
+        //$usertravaux=Travaux::where('artisan_id',$id)->firstOrFail(); //id null in data base
+       // $userphoto=Photo::where('travaux_id',$id)->firstOrFail(); //id null in data base
 
         $user = ["usercompte"=>$usercompte,"useradresse"=>$useradresse,
-        "userartisan"=>$userartisan,"userentreprise"=>$userentreprise,
-        "userphoto"=>$userphoto,"usertravaux"=>$usertravaux,"usercatpro"=>$usercatpro];
+        "userartisan"=>$userartisan,"userentreprise"=>$userentreprise,"usercatpro"=>$usercatpro];
         
         return response()->json($user);
 

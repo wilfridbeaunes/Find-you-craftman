@@ -15,22 +15,20 @@ use Illuminate\Http\Request;
 class UserInformationController extends Controller
 {
     // user connected
-    public function userConnected(Request $request){
+    public function getProfilInfos(Request $request){
         $id= $request->input('id'); //id of the user connected 
-        
-        //now let use this value to get user information in database
-        $usercompte=Compte::where('id',$id)->firstOrFail();
-        $userartisan=Artisan::where('compte_id',$id)->firstOrFail();
-        $useradresse=Adresse::where('id',$id)->firstOrFail();
-        $userentreprise=Entreprise::where('adresse_id',$id)->firstOrFail();
-        $usercatpro=CategorieProfessionelle::where('id',$id)->firstOrFail();
-        //$usertravaux=Travaux::where('artisan_id',$id)->firstOrFail(); //id null in data base
-       // $userphoto=Photo::where('travaux_id',$id)->firstOrFail(); //id null in data base
 
-        $user = ["usercompte"=>$usercompte,"useradresse"=>$useradresse,
-        "userartisan"=>$userartisan,"userentreprise"=>$userentreprise,"usercatpro"=>$usercatpro];
-        
-        return response()->json($user);
+        $compte=Compte::find($id);
+        $artisan= $compte->artisan()->get()->first();
+        $artisan->entreprise;
+        $artisan->entreprise->adresse;
+        $artisan->compte;
+        $travaux=$artisan->travaux;
+        foreach ($travaux as $travail) {
+            $travail->photos;
+        }
+        $artisan->professions;
+        return response()->json($artisan);
 
     }
 }

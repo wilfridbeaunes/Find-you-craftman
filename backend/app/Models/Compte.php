@@ -26,5 +26,8 @@ class Compte extends Model
     protected $hidden = [
         'password',
     ];
+    public function artisan(){
+        return $this->hasOne(Artisan::class);
+    }
 
 }

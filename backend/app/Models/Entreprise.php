@@ -20,4 +20,7 @@ class Entreprise extends Model
     public function adresse(){
         return $this->belongsTo(Adresse::class, 'adresse_id');
     }
+    public function artisan(){
+        return $this->hasMany(Artisan::class, 'entreprise_id')->withDefault();;
+    }
 }

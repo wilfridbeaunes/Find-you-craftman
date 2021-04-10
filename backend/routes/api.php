@@ -28,7 +28,7 @@ Route::post('signup',[Usercontroller::class, 'inscription']);
 Route::get('exists',[Usercontroller::class, 'exists']);
 
 //route to catch data of user from database
-route::get('user/login',[UserInformationController::class, 'userConnected']);
+route::get('profil',[UserInformationController::class, 'getProfilInfos']);
 
 //route to get the local craftmans from database
 route::get('research',[ResearchController::class, 'getArtisans']);

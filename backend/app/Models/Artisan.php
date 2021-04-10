@@ -21,10 +21,13 @@ class Artisan extends Model
         return $this->belongsToMany(CategorieProfessionelle::class, 'profession_artisan', 'artisan_id', 'categorie_pro_id');
     }
     public function entreprise(){
-        return $this->belongsTo(Entreprise::class, 'entreprise_id');
+        return $this->belongsTo(Entreprise::class);
     }
     public function compte(){
         return $this->belongsTo(Compte::class, 'compte_id');
+    }
+    public function travaux(){
+        return $this->hasMany(Travaux::class);
     }
     
 

@@ -21,5 +21,8 @@ class Travaux extends Model
     {
         return $this->belongsTo(Artisan::class, 'artisan_id');
     }
+    public function photos(){
+        return $this->hasMany(Photo::class);
+    }
     
 }

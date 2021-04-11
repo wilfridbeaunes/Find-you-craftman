@@ -17,7 +17,7 @@ class CreateArtisansTable extends Migration
             $table->bigIncrements('id');
             $table->string('nom');
             $table->string('prenom');
-            $table->decimal('telephone', $precision = 10, $scale = 0);
+            $table->text('telephone');
             $table->text('biographie')->nullable();
             $table->binary('image_profil')->nullable();
             $table->foreignId('entreprise_id');

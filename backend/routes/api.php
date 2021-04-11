@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Usercontroller;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\CategorieProfessionelleController;
 use App\Http\Controllers\UserInformationController;
@@ -19,13 +19,29 @@ use App\Http\Controllers\UserInformationController;
 */
 
 //route to get login data from the frontend
-Route::post('login',[Usercontroller::class, 'autentification']);
+Route::post('login',[UserController::class, 'autentification']);
 
 //route for user data typed from the frontend
-Route::post('signup',[Usercontroller::class, 'inscription']);
+Route::post('signup',[UserController::class, 'inscription']);
+
+//route to create a new travaux
+Route::post('travaux/{artisan}',[UserController::class, 'newTravaux']);
+
+//route to update compte informations
+Route::post('compte/{compte}',[UserController::class, 'updateCompte']);
+
+//route to update artisan informations
+Route::post('artisan/{artisan}',[UserController::class, 'updateArtisan']);
+
+//route to update entreprise informations
+Route::post('entreprise/{entreprise}/artisan/{artisan}',[UserController::class, 'updateEntreprise']);
+
+//route to update travaux informations
+Route::post('travaux/{travaux}',[UserController::class, 'updateTravaux']);
+
 
 //route to check if a given email already exists in the database
-Route::get('exists',[Usercontroller::class, 'exists']);
+Route::get('exists',[UserController::class, 'exists']);
 
 //route to catch data of user from database
 route::get('profil',[UserInformationController::class, 'getProfilInfos']);

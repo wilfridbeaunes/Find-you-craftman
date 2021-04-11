@@ -29,6 +29,6 @@ class UserInformationController extends Controller
         }
         $artisan->professions;
         return response()->json($artisan);
-
     }
+
 }

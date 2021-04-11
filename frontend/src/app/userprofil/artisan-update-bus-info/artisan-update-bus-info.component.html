@@ -1,0 +1,42 @@
+<form [formGroup]="ArtisanForm" (submit)=SaveForm()>
+
+    <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="profil" mat-dialog-close >Profil</a></li>
+          <li class="breadcrumb-item active" aria-current="page"> Modification informations entreprise</li>
+        </ol>
+    </nav>
+    <mat-dialog-content class="mat-typography">
+        
+        <div class="form-group">
+            <label >Nom entreprise</label>
+            <input type="text" class="form-control" formControlName="nom">
+        </div>
+        <div class="form-group">
+            <label >Catégorie professionnelle</label>
+            <select type="text" class="form-control" formControlName="cp" >
+
+            </select>
+        </div>
+        <div class="form-group">
+            <label >Site web</label>
+            <input type="text" class="form-control" formControlName="url">
+        </div>
+        <div class="form-group">
+            <label >Adress postale</label>
+            <input type="text" class="form-control" formControlName="adresse" >
+        </div>
+        <div class="form-group">
+            <label >Logo entreprise</label>: 
+            <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput formControlName="logo"> 
+                <button (click)="fileInput.click()" routerLink="#" style="background-color:#074ba3;"> Impoter logo</button>
+        </div>
+            
+    </mat-dialog-content>
+
+    <mat-dialog-actions >
+    <button mat-button mat-dialog-close routerLink="/profil" style="background-color:#47566a;">retour</button>
+    <button mat-button  style="background-color:#47566a;" type="submit">valider</button>
+    </mat-dialog-actions>
+
+</form>

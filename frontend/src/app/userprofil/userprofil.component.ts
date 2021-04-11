@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Authservice} from '.././services/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { ProfilInfosservice } from '../services/profil-infos.service';
 
 @Component({
   selector: 'app-userprofil',
@@ -12,19 +13,16 @@ export class UserprofilComponent implements OnInit {
   user;
   constructor(
     public authservice: Authservice,
-    private http: HttpClient) {
+    private http: HttpClient,
+    private profiService: ProfilInfosservice) {
   }
         
   ngOnInit(): void {
 
     if(this.authservice.userId != null){
-      var data={
-        id: ''+this.authservice.userId
-      }
       //with this route, I sent the ID of the user connected
-      this.http.get('http://localhost:8000/api/user/login',{params:data} ).subscribe(
+      this.profiService.getProfilInfo().subscribe(
         (result:any)=>{
-            console.log(result);
             this.user=result;
         }, 
         error=>{
@@ -32,7 +30,13 @@ export class UserprofilComponent implements OnInit {
         })
     }
   }
+  
+  // photo de profil
+  selectedPicture: File = null;
+  onFileSelected(event){
+    this.selectedPicture=<File>event.target.files[0];
+    console.log(this.selectedPicture);
+  }
 
-
-
+  
 }

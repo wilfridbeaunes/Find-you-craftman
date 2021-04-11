@@ -28,6 +28,13 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { Authservice } from './services/auth.service';
+import { ArtisanUpdatePersInfoComponent } from './userprofil/artisan-update-pers-info/artisan-update-pers-info.component';
+import { DeleteAccountComponent } from './userprofil/delete-account/delete-account.component';
+import { ArtisanUpdateBusInfoComponent } from './userprofil/artisan-update-bus-info/artisan-update-bus-info.component';
+import { ProfilInfosservice } from './services/profil-infos.service';
+import { ArtisanUpdatePasswordComponent } from './userprofil/artisan-update-password/artisan-update-password.component';
+
+
 
 
 @NgModule({
@@ -40,6 +47,11 @@ import { Authservice } from './services/auth.service';
     UserprofilComponent,
     MapComponent,
     AroundMeComponent,
+    ArtisanUpdatePersInfoComponent,
+    DeleteAccountComponent,
+    ArtisanUpdateBusInfoComponent,
+    ArtisanUpdatePasswordComponent,
+  
 
   ],
   entryComponents:[DialogComponent],
@@ -67,6 +79,7 @@ import { Authservice } from './services/auth.service';
   providers: [
     LocationService,
     ResearchService,
+    ProfilInfosservice,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     CategoriesProfessionellesService,
     Authservice

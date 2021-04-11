@@ -14,15 +14,15 @@
             </div>
             <div class="form-group col-6">
                 <label >date de debut</label>
-                <input type="date" pattern="[0-9]{10}" class="form-control" formControlName="datedebut">
+                <input type="date" class="form-control" formControlName="df">
             </div>
             <div class="form-group col-6">
                 <label >date de fin</label>
-                <input type="date" class="form-control" formControlName="dd" >
+                <input type="date" class="form-control" formControlName="df" >
             </div> 
             <label >Photo : </label>
+            <input readonly="readonly" type="image" class="form-control" formControlName="photos" >
             <div class="form-group col-12">
-                <input type="image" class="form-control" formControlName="photos" >
                 <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput formControlName="pho"> 
                 <button (click)="fileInput.click()" routerLink="#" style="background-color:#074ba3;"> Impoter une photo</button>
             </div>

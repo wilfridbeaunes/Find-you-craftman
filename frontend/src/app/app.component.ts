@@ -5,6 +5,7 @@ import { ArtisanUpdatePersInfoComponent } from './userprofil/artisan-update-pers
 import { DeleteAccountComponent } from './userprofil/delete-account/delete-account.component';
 import { ArtisanUpdateBusInfoComponent } from './userprofil/artisan-update-bus-info/artisan-update-bus-info.component';
 import { ArtisanUpdatePasswordComponent } from './userprofil/artisan-update-password/artisan-update-password.component';
+import { ArtisanUpdateTravauxComponent } from './userprofil/artisan-update-travaux/artisan-update-travaux.component';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,10 @@ export class AppComponent {
     this.dialog.open(ArtisanUpdatePasswordComponent);
   }
 
+  openDialogModifierTrav(){
+    this.dialog.open(ArtisanUpdateTravauxComponent);
+  }
+  
 }
 
 

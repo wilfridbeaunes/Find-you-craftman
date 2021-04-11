@@ -26,9 +26,10 @@
             <label >Adress postale</label>
             <input type="text" class="form-control" formControlName="adresse" >
         </div>
+        <label >Logo entreprise</label>: 
         <div class="form-group">
-            <label >Logo entreprise</label>: 
-            <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput formControlName="logo"> 
+            <input type="image" class="form-control" formControlName="logo" >
+            <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput formControlName="lg"> 
                 <button (click)="fileInput.click()" routerLink="#" style="background-color:#074ba3;"> Impoter logo</button>
         </div>
             

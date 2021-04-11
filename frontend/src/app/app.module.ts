@@ -33,6 +33,7 @@ import { DeleteAccountComponent } from './userprofil/delete-account/delete-accou
 import { ArtisanUpdateBusInfoComponent } from './userprofil/artisan-update-bus-info/artisan-update-bus-info.component';
 import { ProfilInfosservice } from './services/profil-infos.service';
 import { ArtisanUpdatePasswordComponent } from './userprofil/artisan-update-password/artisan-update-password.component';
+import { ArtisanUpdateTravauxComponent } from './userprofil/artisan-update-travaux/artisan-update-travaux.component';
 
 
 
@@ -51,6 +52,7 @@ import { ArtisanUpdatePasswordComponent } from './userprofil/artisan-update-pass
     DeleteAccountComponent,
     ArtisanUpdateBusInfoComponent,
     ArtisanUpdatePasswordComponent,
+    ArtisanUpdateTravauxComponent,
   
 
   ],

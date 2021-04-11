@@ -40,6 +40,7 @@ export class ArtisanUpdateBusInfoComponent implements OnInit {
       adresse:'',
       url:'',
       logo:'',
+      lg:''
   
     });
 

@@ -1,0 +1,39 @@
+<form [formGroup]="travauxForm" (submit)=SaveForm()>
+    <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/profil" mat-dialog-close >Profil</a></li>
+          <li class="breadcrumb-item active" aria-current="page"> Modification ces Travaux </li>
+        </ol>
+      </nav>
+    <mat-dialog-content class="mat-typography">
+     
+        <div class="form-row">
+            <div class="form-group col-12">
+                <label >Objectif</label>
+                <input type="text" class="form-control" formControlName="obj">
+            </div>
+            <div class="form-group col-6">
+                <label >date de debut</label>
+                <input type="date" pattern="[0-9]{10}" class="form-control" formControlName="datedebut">
+            </div>
+            <div class="form-group col-6">
+                <label >date de fin</label>
+                <input type="date" class="form-control" formControlName="dd" >
+            </div> 
+            <label >Photo : </label>
+            <div class="form-group col-12">
+                <input type="image" class="form-control" formControlName="photos" >
+                <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput formControlName="pho"> 
+                <button (click)="fileInput.click()" routerLink="#" style="background-color:#074ba3;"> Impoter une photo</button>
+            </div>
+        </div>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions >
+    <button mat-button mat-dialog-close routerLink="/profil" style="background-color:#47566a;">retour</button>
+    <button mat-button  style="background-color:#47566a;" type="submit">valider</button>
+    </mat-dialog-actions>
+
+</form>
+

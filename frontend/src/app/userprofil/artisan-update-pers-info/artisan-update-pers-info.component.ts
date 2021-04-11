@@ -64,10 +64,9 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
     //submit button will store value from my front to a variable call data and sent it to the Api
   async SaveForm() {
     const formData = this.ArtisanForm.getRawValue();
-    console.log(['edit',formData])
     const data = {
       nom:formData.Nom,
-      nrenom:formData.Premon,
+      prenom:formData.Premon,
       email:formData.Email,
       phone:formData.Phone,
       bio:formData.Bio,

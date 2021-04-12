@@ -68,17 +68,17 @@
                   <div class="col-sm-9 text-secondary">
                     <div class="text-secondary" *ngFor="let job of user?.professions"> 
                       {{job.titre}}
-                      {{job.description}}
+                      <!-- {{job.description}} -->
                     </div>
                   </div>
                </li> 
-               <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+               <!-- <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                 <h5 class="mb-0">Logo</h5>
                 <span  *ngIf="user?.entreprise.logo==null && authservice.isConnected; else logo" class="text-secondary"> Logo pas renseigné</span>
               </li>
               <ng-template #logo>
                 <span  class="text-secondary">{{user?.entreprise.logo}}</span>
-              </ng-template>
+              </ng-template> -->
               </ul>
             </div>
             
@@ -112,7 +112,9 @@
                     Numero pas reseigné 
                   </div>
                   <ng-template class="col-sm-9 text-secondary" #phone>
-                    {{user?.telephone}} 
+                    <div class="col-sm-9 text-secondary">
+                      {{user?.telephone}} 
+                    </div>
                   </ng-template>
                 </div>
                 <hr>
@@ -120,12 +122,10 @@
                   <div class="col-sm-3">
                     <h6 class="mb-0">Adress postale</h6>
                   </div>
-                  <div class="col-sm-9 text-secondary" *ngIf="user?.entreprise.adresse.adresse_postale==null && authservice.isConnected; else adresse">
-                    Adresse postale pas reseigné
-                  </div>
-                  <ng-template class="col-sm-9 text-secondary" #adresse>
+                  <div class="col-sm-9 text-secondary">
                     {{user?.entreprise.adresse.adresse_postale}} 
-                  </ng-template>
+                  </div>
+               
                 </div>
               </div>
             </div>

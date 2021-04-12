@@ -4,13 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import {MatStepper, MatStepperModule} from '@angular/material/stepper';
-import { StepState } from '@angular/cdk/stepper';
 import { CategoriesProfessionellesService } from 'src/app/services/categories-professionnelles.service';
 import { MustMatch } from 'src/app/helpers/match.validator';
-import { Observable } from 'rxjs';
 import {debounceTime, finalize, map, startWith, switchMap, tap} from 'rxjs/operators';
 import { LocationService } from 'src/app/services/location.service';
-import { latLng } from 'leaflet';
 import { EmailExist } from 'src/app/helpers/email.validator';
 
 
@@ -147,7 +144,7 @@ export class SignupComponent implements OnInit {
     );
   }
   getCat(id){    
-    return this.categories[id].titre;
+    return this.categories[id-1].titre;
   }
 
   get business() { return this.businessFormGroup.controls; }

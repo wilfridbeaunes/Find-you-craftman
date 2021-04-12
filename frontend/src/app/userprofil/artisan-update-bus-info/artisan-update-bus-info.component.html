@@ -1,41 +1,69 @@
-<form [formGroup]="ArtisanForm" (submit)=SaveForm()>
+<form [formGroup]="entrepriseForm" (submit)=ValidateForm()>
 
     <nav aria-label="breadcrumb" class="main-breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a routerLink="profil" mat-dialog-close >Profil</a></li>
-          <li class="breadcrumb-item active" aria-current="page"> Modification informations entreprise</li>
+            <li class="breadcrumb-item"><a routerLink="profil" mat-dialog-close>Profil</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Modification des Informations entreprise</li>
         </ol>
     </nav>
     <mat-dialog-content class="mat-typography">
-        
-        <div class="form-group">
-            <label >Nom entreprise</label>
-            <input type="text" class="form-control" formControlName="nom">
-        </div>
-        <div class="form-group">
-            <label >Catégorie professionnelle</label>
-            <select type="text" class="form-control" formControlName="cp" >
 
+        <div class="form-group">
+            <label class="mat-label">Nom de votre entreprise</label>
+            <input type="text" class="form-control" type="text"
+                [ngClass]="{ 'is-invalid': submitted && business.nom.errors }" formControlName="nom"
+                placeholder="Entrée le nom de votre entreprise" required>
+            <div *ngIf="submitted && business.nom.errors" class="invalid-feedback">
+                <div *ngIf="business.nom.errors.required">Nom d'entreprise obligatoire</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="mat-label">Secteurs d'activités</label>
+            <select id="activite" class="form-control" formControlName="act" placeholder="Veuillez choisir" name="act"
+                [ngClass]="{ 'is-invalid': submitted && business.act.errors }" required>
+                <option *ngFor="let cat of categories; let i=index" value="{{i+1}}" title="cat.titre">
+                    {{cat.titre}}
+                </option>
             </select>
+            <div *ngIf="submitted && business.act.errors" class="invalid-feedback">
+                <div *ngIf="business.act.errors.required">le secteur d'activités est obligatoire</div>
+            </div>
         </div>
         <div class="form-group">
-            <label >Site web</label>
-            <input type="text" class="form-control" formControlName="url">
+            <label>Site web</label>
+            <input type="text" class="form-control" type="text" formControlName="url"
+                placeholder="Entrée l'url de votre entreprise">
         </div>
         <div class="form-group">
-            <label >Adress postale</label>
-            <input type="text" class="form-control" formControlName="adresse" >
+            <label class="mat-label">Adresse Postale</label>
+            <input matInput type="text" class="form-control" placeholder="Entrer l'adresse postale de votre entreprise"
+                formControlName="addr"
+                [ngClass]="{ 'is-invalid': (submitted && business.addr.errors) || (submitted && addrError) }"
+                [matAutocomplete]="auto" required>
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+                <ng-container *ngIf="!isLoading">
+                    <mat-option *ngFor="let addr of adressesFrance" [value]="addr">
+                        <span>{{addr}}</span>
+                    </mat-option>
+                </ng-container>
+            </mat-autocomplete>
+            <div *ngIf="(submitted && business.addr.errors) || (submitted && addrError)" class="invalid-feedback">
+                <div *ngIf="business.addr.errors && business.addr.errors.required">l'adresse postale est obligatoire
+                </div>
+                <div *ngIf="addrError">Adresse invalid : veuillez choisir une adresse proposée</div>
+            </div>
         </div>
-        <label >Logo entreprise</label>: 
+        <!-- <label>Logo entreprise</label>:
         <div class="form-group">
-            <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput formControlName="logo"> 
+            <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput formControlName="logo">
             <button (click)="fileInput.click()" routerLink="#" style="background-color:#074ba3;"> Impoter logo</button>
-        </div>
-            
+        </div> -->
+
     </mat-dialog-content>
 
-    <mat-dialog-actions >
-    <button mat-button mat-dialog-close routerLink="/profil" style="background-color:#47566a;">retour</button>
-    <button mat-button  style="background-color:#47566a;" type="submit">valider</button>
+    <mat-dialog-actions>
+        <button mat-button mat-dialog-close routerLink="/profil" style="background-color:#47566a;">Annuler</button>
+        <button mat-button style="background-color:dodgerblue;" type="submit" >Valider</button>
     </mat-dialog-actions>
 </form>

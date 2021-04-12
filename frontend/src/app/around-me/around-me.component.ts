@@ -15,20 +15,20 @@ export class AroundMeComponent implements OnInit {
   defaultActivity = "1";
   defaultCodePostal = "";
 
-  constructor(private router: Router, private route: ActivatedRoute, private catProService: CategoriesProfessionellesService ) {}
+  constructor(private router: Router, private route: ActivatedRoute, private catProService: CategoriesProfessionellesService) { }
 
   ngOnInit(): void {
     this.getAllCategories();
     this.codePostal = this.route.snapshot.paramMap.get('cp');
     this.activite = this.route.snapshot.paramMap.get('act');
     this.defaultCodePostal = this.codePostal;
-    if(this.codePostal==null || this.activite == null){
-      this.activite=this.defaultActivity;
-      this.codePostal="0";
+    if (this.codePostal == null || this.activite == null) {
+      this.activite = this.defaultActivity;
+      this.codePostal = "0";
       this.defaultCodePostal = "";
-    }    
-    
-    this.router.routeReuseStrategy.shouldReuseRoute = () =>{
+    }
+
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
   }
@@ -38,16 +38,16 @@ export class AroundMeComponent implements OnInit {
   }
 
   // get all the categories 
-  getAllCategories(){
+  getAllCategories() {
     return this.catProService.getAllCategories().subscribe(
-      (result:any)=>{        
+      (result: any) => {
         this.categories = result;
       },
-      error=>{
+      error => {
         console.log(error);
       }
     );
   }
-  
+
 
 }

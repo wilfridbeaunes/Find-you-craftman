@@ -20,4 +20,11 @@ import { Authservice } from './auth.service';
         
         return this.http.get('http://localhost:8000/api/profil',{params:data});
    }
+   getProfilInfoById(id){
+    var data={
+        id: ''+id
+      }
+    
+    return this.http.get('http://localhost:8000/api/profil',{params:data});
+}
 } 

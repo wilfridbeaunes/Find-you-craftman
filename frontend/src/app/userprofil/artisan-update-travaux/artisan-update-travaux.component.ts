@@ -33,7 +33,6 @@ export class ArtisanUpdateTravauxComponent implements OnInit {
       dd: '', 
       df:'', 
       photos:'',
-      pho:''
     });
 
     if(this.authservice.userId!= null){
@@ -43,15 +42,16 @@ export class ArtisanUpdateTravauxComponent implements OnInit {
             this.user=result;
             // Set the Values form edit
             this.travauxForm.controls["obj"].setValue('in progress'); //this.user.nom
-            this.travauxForm.controls["dd"].setValue('in prosress');
-            this.travauxForm.controls["df"].setValue('in prosress');
-            this.travauxForm.controls["photos"].setValue('in prosress');
+            this.travauxForm.controls["dd"].setValue('');
+            this.travauxForm.controls["df"].setValue('');
+            this.travauxForm.controls["photos"].setValue('');
         })
     };
   }
    // photos 
    onFileSelected(event){ 
-    this.selectPhoto=<File>event.target.files[0];
+    this.selectPhoto=<File>event.target.files[0]; 
+    console.log( this.selectPhoto)
   };
     //submit button will store value from my front to a variable call data and sent it to the Api
   async SaveForm() {
@@ -60,7 +60,7 @@ export class ArtisanUpdateTravauxComponent implements OnInit {
       obj:formData.objectif,
       df:formData.df,
       dd:formData.dd,
-      photos:this.selectPhoto
+      photos:this.selectPhoto.name
     }
     //send my data to the backend server
     try {
@@ -72,4 +72,5 @@ export class ArtisanUpdateTravauxComponent implements OnInit {
       console.log(error);
     }
   }
+
 }

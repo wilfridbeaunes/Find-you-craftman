@@ -40,7 +40,6 @@ export class ArtisanUpdateBusInfoComponent implements OnInit {
       adresse:'',
       url:'',
       logo:'',
-      lg:''
   
     });
 
@@ -71,7 +70,7 @@ export class ArtisanUpdateBusInfoComponent implements OnInit {
       adresse:formData.adresse,
       cp:formData.cp,
       url:formData.url,
-      logo:this.selectedLogo
+      logo:this.selectedLogo.name
     }
 
     //send my data to the backend server

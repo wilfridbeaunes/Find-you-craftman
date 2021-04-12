@@ -21,10 +21,9 @@
                 <input type="date" class="form-control" formControlName="df" >
             </div> 
             <label >Photo : </label>
-            <input readonly="readonly" type="image" class="form-control" formControlName="photos" >
             <div class="form-group col-12">
-                <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput formControlName="pho"> 
-                <button (click)="fileInput.click()" routerLink="#" style="background-color:#074ba3;"> Impoter une photo</button>
+                <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput formControlName="photos"> 
+                <button type ="button" (click)="fileInput.click()" routerLink="#" style="background-color:#074ba3;"> Impoter une photo</button>
             </div>
         </div>
 

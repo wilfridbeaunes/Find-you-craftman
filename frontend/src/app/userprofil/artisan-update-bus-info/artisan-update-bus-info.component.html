@@ -27,9 +27,8 @@
             <input type="text" class="form-control" formControlName="adresse" >
         </div>
         <label >Logo entreprise</label>: 
-        <input readonly="readonly" type="image" class="form-control" formControlName="logo" >
         <div class="form-group">
-            <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput formControlName="lg"> 
+            <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput formControlName="logo"> 
             <button (click)="fileInput.click()" routerLink="#" style="background-color:#074ba3;"> Impoter logo</button>
         </div>
             

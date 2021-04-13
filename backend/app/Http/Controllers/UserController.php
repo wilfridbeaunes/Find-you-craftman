@@ -222,12 +222,14 @@ class UserController extends Controller
     
         return response()->json(['success'=>true,'travaux'=>$travaux, 'error'=> null]);
     }
+    public function IsCurrentPassword(Request $request, Compte $compte){
+        $same = password_verify($request->input('password'), $compte->password);
+        return response()->json(['same'=>$same]);
+    }
 
     public function updateCompte(Request $request, Compte $compte){
-
-        $compte->password = $request->input('password');
+        $compte->password = password_hash($request->input('password'), PASSWORD_DEFAULT); 
         $compte->save();
         return response()->json(['success'=>true,'compte'=>$compte, 'error'=> null]);
-
     }
 }

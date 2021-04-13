@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MustMatch } from 'src/app/helpers/match.validator';
 import { ProfilInfosservice } from 'src/app/services/profil-infos.service';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { ProfilInfosservice } from 'src/app/services/profil-infos.service';
 })
 export class ArtisanUpdatePersInfoComponent implements OnInit {
   public ArtisanForm: FormGroup;
-
+  submitted = false;
   user;
   constructor(
     private fb: FormBuilder,
@@ -23,59 +24,66 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
     public authservice: Authservice,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private profiService: ProfilInfosservice) { 
+    private matDialog: MatDialog,
+    private profiService: ProfilInfosservice) {
   }
 
-    //even when edit have been updated
-    openSnackBar(message: string, action: string) {
-      this._snackBar.open(message, action, {
-        duration: 2500,
-      });
-    }
+  //even when edit have been updated
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2500,
+    });
+  }
 
   ngOnInit(): void {
 
     this.ArtisanForm = this.fb.group({
       Nom: ['', Validators.required],
       Prenom: ['', Validators.required],
-      Email:['', [Validators.required,Validators.email]],
-      Phone:'',
-      Bio:'',
+      Email: ['', [Validators.required, Validators.email]],
+      Phone: '',
+      Bio: '',
     });
 
-    if(this.authservice.userId!= null){
+    if (this.authservice.userId != null) {
       //with this route, I sent the ID of the user connected
       this.profiService.getProfilInfo().subscribe(
-        (result:any)=>{
-            this.user=result;
-            // Set the Values form edit
-            this.ArtisanForm.controls["Nom"].setValue(this.user.nom);
-            this.ArtisanForm.controls["Prenom"].setValue(this.user.prenom);
-            this.ArtisanForm.controls["Phone"].setValue(this.user.telephone);
-            this.ArtisanForm.controls["Email"].setValue(this.user.compte.email);
-            this.ArtisanForm.controls["Bio"].setValue(this.user.biographie);
+        (result: any) => {
+          this.user = result;
+          // Set the Values form edit
+          this.ArtisanForm.controls["Nom"].setValue(this.user.nom);
+          this.ArtisanForm.controls["Prenom"].setValue(this.user.prenom);
+          this.ArtisanForm.controls["Phone"].setValue(this.user.telephone);
+          this.ArtisanForm.controls["Email"].setValue(this.user.compte.email);
+          this.ArtisanForm.controls["Bio"].setValue(this.user.biographie);
         })
     };
 
 
   }
-  
-  get artisanValue() { return this.ArtisanForm.controls; }
-    //submit button will store value from my front to a variable call data and sent it to the Api
+
+  get personal() { return this.ArtisanForm.controls; }
+  //submit button will store value from my front to a variable call data and sent it to the Api
+  validateForm() {
+    this.submitted = true;
+    if (!this.ArtisanForm.invalid) {
+      this.SaveForm();
+    }
+  }
   async SaveForm() {
     const formData = this.ArtisanForm.getRawValue();
     const data = {
-      nom:formData.Nom,
-      prenom:formData.Premon,
-      email:formData.Email,
-      phone:formData.Phone,
-      bio:formData.Bio,
+      nom: formData.Nom,
+      prenom: formData.Prenom,
+      phone: formData.Phone,
+      bio: formData.Bio,
     }
     //send my data to the backend server
     try {
-      let result = await this.http.post<any>('http://localhost:8000/api/edit/personelInfo', data).toPromise();
+      let result = await this.http.post<any>('http://localhost:8000/api/artisan/' + this.user.id, data).toPromise();
       if (result.success) {
         this.router.navigate(['profil']); //route when data was updated well 
+        this.matDialog.closeAll();
         this.openSnackBar(result.message, 'close');
       }
     } catch (error) {

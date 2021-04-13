@@ -28,6 +28,7 @@ export class ArtisanUpdateBusInfoComponent implements OnInit {
   categories;
   user;
   entreprise;
+  
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -56,7 +57,6 @@ export class ArtisanUpdateBusInfoComponent implements OnInit {
       addr: '',
       act: ['', Validators.required],
       url:'',
-      // logo:'',
     });
 
     if(this.authservice.userId != null){
@@ -64,15 +64,14 @@ export class ArtisanUpdateBusInfoComponent implements OnInit {
       this.profilService.getProfilInfo().subscribe(
         (result:any)=>{
           console.log(result);
-          
-            this.user=result;
-            this.entreprise = this.user.entreprise;
-            // Set Values form edit
-            this.entrepriseForm.controls["nom"].setValue(this.user.entreprise.nom);
-            this.entrepriseForm.controls["addr"].setValue(this.user.entreprise.adresse.adresse_postale);
-            this.entrepriseForm.controls["url"].setValue(this.user.entreprise.url);
-            // this.entrepriseForm.controls["logo"].setValue(this.user.entreprise.logo);
-            this.entrepriseForm.controls["act"].setValue(this.user.professions[0].id);
+          this.user=result;
+          this.entreprise = this.user.entreprise;
+          // Set Values form edit
+          this.entrepriseForm.controls["nom"].setValue(this.user.entreprise.nom);
+          this.entrepriseForm.controls["addr"].setValue(this.user.entreprise.adresse.adresse_postale);
+          this.entrepriseForm.controls["url"].setValue(this.user.entreprise.url);
+          // this.entrepriseForm.controls["logo"].setValue(this.user.entreprise.logo);
+          this.entrepriseForm.controls["act"].setValue(this.user.professions[0].id);
       })
     };
     
@@ -138,8 +137,6 @@ export class ArtisanUpdateBusInfoComponent implements OnInit {
         this.addrError= true;
       }
     }
-    
-
   }
   async SaveForm() {
     

@@ -43,6 +43,9 @@ Route::post('travaux/{travaux}',[UserController::class, 'updateTravaux']);
 //route to check if a given email already exists in the database
 Route::get('exists',[UserController::class, 'exists']);
 
+//route to check if a given email already exists in the database
+Route::get('password/{compte}',[UserController::class, 'IsCurrentPassword']);
+
 //route to catch data of user from database
 route::get('profil',[UserInformationController::class, 'getProfilInfos']);
 

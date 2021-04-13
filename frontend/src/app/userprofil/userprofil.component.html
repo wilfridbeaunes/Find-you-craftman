@@ -1,153 +1,171 @@
-<div >
- <div class="container">
-   <div class="main-body">
-        <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb" class="main-breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-            <li class="breadcrumb-item" aria-current="page">Profil utilisateur</li>
-            <li class="ml-auto" *ngIf="!visiter"> 
-              <a [matMenuTriggerFor]="menu" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
-                <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+<div>
+  <div class="container">
+    <div class="main-body">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+          <li class="breadcrumb-item" aria-current="page">Profil utilisateur</li>
+          <li class="ml-auto" *ngIf="!visiter">
+            <a [matMenuTriggerFor]="menu"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                <path
+                  d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
               </svg>Paramétres</a>
-              <mat-menu #menu>
-                <button mat-menu-item (click)="openDialogModifierPers()">Modifier informations personnelles</button>
-                <button mat-menu-item (click)="openDialogModifierBus()">Modifier informations d'entreprise</button>
-                <button mat-menu-item (click)="openDialogModifierTrav()">Modifier travaux</button>
-                <button mat-menu-item (click)="openDialogModifierPwd()">Modifier mot de passe</button>
-                <button mat-menu-item  (click)="openDialogDeletaAccount()">Supprimer votre compte</button>
-              </mat-menu>
-            </li>
-          </ol>
-        </nav>
-        <!-- /Breadcrumb -->
-  
-        <div class="row gutters-sm">
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex flex-column align-items-center text-center">
-                  
-                  <!-- if picture is not null-->  
-                  <div *ngIf='user?.image_profil!=null; else picture' class="rounded-circle" width="150" >
-                    {{user?.image_profil}}
-                  </div>
-                  <!--else --><!-- Put this image as long the user didn't change his profil picture -->
-                  <ng-template #picture>
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png"  class="rounded-circle" width="150">
-                  </ng-template>
-<!-- 
+            <mat-menu #menu>
+              <button mat-menu-item (click)="openDialogModifierPers()">Modifier informations personnelles</button>
+              <button mat-menu-item (click)="openDialogModifierBus()">Modifier informations d'entreprise</button>
+              <button mat-menu-item (click)="openDialogModifierTrav()">Modifier travaux</button>
+              <button mat-menu-item (click)="openDialogModifierPwd()">Modifier mot de passe</button>
+              <button mat-menu-item (click)="openDialogDeletaAccount()">Supprimer votre compte</button>
+            </mat-menu>
+          </li>
+        </ol>
+      </nav>
+      <!-- /Breadcrumb -->
+
+      <div class="row gutters-sm">
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-column align-items-center text-center">
+
+                <!-- if picture is not null-->
+                <div *ngIf='user?.image_profil!=null; else picture' class="rounded-circle" width="150">
+                  {{user?.image_profil}}
+                </div>
+                <!--else -->
+                <!-- Put this image as long the user didn't change his profil picture -->
+                <ng-template #picture>
+                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded-circle" width="150">
+                </ng-template>
+                <!-- 
                   <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput> 
                   <a (click)="fileInput.click()" routerLink="#" *ngIf="authservice.isConnected"> Edifier</a> -->
 
-                  <div class="mt-3">
-                    <h4>{{user?.prenom}}</h4>
-                    <p class="text-secondary mb-1" *ngIf="user?.biographie==null && authservice.isConnected; else bio_is">Biographie pas renseigné</p>
-                    <ng-template class="text-secondary mb-1" #bio_is>{{user?.biographie}}</ng-template>
-                  </div>
+                <div class="mt-3">
+                  <h4>{{user?.prenom}}</h4>
+                  <p class="text-secondary mb-1" *ngIf="user?.biographie==null && authservice.isConnected; else bio_is">
+                    Biographie pas renseigné</p>
+                  <ng-template class="text-secondary mb-1" #bio_is>{{user?.biographie}}</ng-template>
                 </div>
               </div>
             </div>
-            <div class="card mt-3">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                      <h5 class="mb-0">Nom de l'entreprise</h5>
-                      <span class="text-secondary">{{user?.entreprise.nom}}</span>
-                </li> 
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </div>
+          <div class="card mt-3">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h5 class="mb-0">Nom de l'entreprise</h5>
+                <span class="text-secondary">{{user?.entreprise.nom}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-globe mr-2 icon-inline">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path
+                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                    </path>
                   </svg>Site web</h6>
-                  <span class="text-secondary" *ngIf="user?.entreprise.url==null && authservice.isConnected; else url" > Url pas renseigné</span>
-                  
-                </li> 
-                <ng-template #url>
-                  <spam class="text-secondary" routerLink="#" > {{user?.entreprise.url}}</spam>
-                </ng-template>
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" >
-                  <div><h5><strong>Gatégorie(s) professionelle(s)</strong></h5></div>
-                  <div class="col-sm-9 text-secondary">
-                    <div class="text-secondary" *ngFor="let job of user?.professions"> 
-                      {{job.titre}}
-                      <!-- {{job.description}} -->
-                    </div>
+                <span class="text-secondary" *ngIf="user?.entreprise.url==null && authservice.isConnected; else url">
+                  Url pas renseigné</span>
+
+              </li>
+              <ng-template #url>
+                <spam class="text-secondary" routerLink="#"> {{user?.entreprise.url}}</spam>
+              </ng-template>
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <div>
+                  <h5><strong>Gatégorie(s) professionelle(s)</strong></h5>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <div class="text-secondary" *ngFor="let job of user?.professions">
+                    {{job.titre}}
+                    <!-- {{job.description}} -->
                   </div>
-               </li> 
-               <!-- <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                </div>
+              </li>
+              <!-- <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                 <h5 class="mb-0">Logo</h5>
                 <span  *ngIf="user?.entreprise.logo==null && authservice.isConnected; else logo" class="text-secondary"> Logo pas renseigné</span>
               </li>
               <ng-template #logo>
                 <span  class="text-secondary">{{user?.entreprise.logo}}</span>
               </ng-template> -->
-              </ul>
-            </div>
-            
+            </ul>
           </div>
-          <div class="col-md-8">
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Nom prenom</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{user?.nom |uppercase}} {{user?.prenom |uppercase}} 
-                  </div>
+
+        </div>
+        <div class="col-md-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Nom prenom</h6>
                 </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Email</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{user?.compte.email}} 
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Télephone</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary" *ngIf="user?.telephone==null && authservice.isConnected; else phone" >
-                    Numero pas reseigné 
-                  </div>
-                  <ng-template class="col-sm-9 text-secondary" #phone>
-                    <div class="col-sm-9 text-secondary">
-                      {{user?.telephone}} 
-                    </div>
-                  </ng-template>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Adress postale</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{user?.entreprise.adresse.adresse_postale}} 
-                  </div>
-               
+                <div class="col-sm-9 text-secondary">
+                  {{user?.nom |uppercase}} {{user?.prenom |uppercase}}
                 </div>
               </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{user?.compte.email}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Télephone</h6>
+                </div>
+                <div class="col-sm-9 text-secondary"
+                  *ngIf="user?.telephone==null && authservice.isConnected; else phone">
+                  Numero pas reseigné
+                </div>
+                <ng-template class="col-sm-9 text-secondary" #phone>
+                  <div class="col-sm-9 text-secondary">
+                    {{user?.telephone}}
+                  </div>
+                </ng-template>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Adress postale</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{user?.entreprise.adresse.adresse_postale}}
+                </div>
+
+              </div>
             </div>
-            <div class="row gutters-sm">
-              <div class="col-sm-12 mb-3">
-                <div class="card h-100">
-                  <div class="card-body">
-                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Travaux réalisés</h6>
-                    <small>Plomberie</small>
-                    <h5>description ici</h5>
-                    <small>Photos</small>
-                    <div class="progress mb-3" style="height: 5px">
-                      <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <small>Website Markup</small>
-                    <div class="progress mb-3" style="height: 5px">
-                      <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <small>One Page</small>
-                    <div class="progress mb-3" style="height: 5px">
-                      <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+          </div>
+          <div class="row gutters-sm">
+            <div class="col-sm-12 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h6 class="d-flex align-items-center mb-3"><i
+                      class="material-icons text-info mr-2">assignment</i>Travaux réalisés</h6>
+                  <small>Plomberie</small>
+                  <h5>description ici</h5>
+                  <small>Photos</small>
+                  <div class="progress mb-3" style="height: 5px">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <small>Website Markup</small>
+                  <div class="progress mb-3" style="height: 5px">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72"
+                      aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <small>One Page</small>
+                  <div class="progress mb-3" style="height: 5px">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89"
+                      aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
@@ -155,5 +173,6 @@
           </div>
         </div>
       </div>
+    </div>
   </div>
 </div>

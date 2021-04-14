@@ -57,6 +57,7 @@ export class ArtisanUpdateTravauxListComponent implements OnInit {
     
   }
   modifierTravaux(travail){
+    this.dialog.closeAll();
     this.dialog.open(ArtisanUpdateTravauxComponent,{
       data: {
         travail:travail
@@ -64,7 +65,7 @@ export class ArtisanUpdateTravauxListComponent implements OnInit {
     });
   }
   ajouterTravail(){
-    console.log('ajouter!');
+    this.dialog.closeAll();
     this.dialog.open(ArtisanUpdateTravauxComponent);
   }
 

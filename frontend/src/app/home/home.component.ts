@@ -16,17 +16,21 @@ export class HomeComponent implements OnInit {
   categories;
   defaultActivity = "1";
   defaultCodePostal = "";
-  
-  constructor(private router: Router, public dialog: MatDialog,private catProService: CategoriesProfessionellesService) { }
 
+  constructor(private router: Router, public dialog: MatDialog, private catProService: CategoriesProfessionellesService) { }
+
+  //initialization
   ngOnInit(): void {
     this.getAllCategories();
   }
+
+  //submit the form
   onSubmit(form: NgForm) {
     this.router.navigate(['research', form.value.cp, form.value.act]);
   }
 
-  openDialog(){
+  // open the "savoir faire" dialog
+  openDialog() {
     this.dialog.open(DialogComponent,
       {
         width: '600px',
@@ -34,12 +38,12 @@ export class HomeComponent implements OnInit {
   }
 
   //get all the categories
-  getAllCategories(){
+  getAllCategories() {
     return this.catProService.getAllCategories().subscribe(
-      (result:any)=>{                
+      (result: any) => {
         this.categories = result;
       },
-      error=>{
+      error => {
         console.log(error);
       }
     );
@@ -49,6 +53,6 @@ export class HomeComponent implements OnInit {
 
 
 
-  
-    
+
+
 

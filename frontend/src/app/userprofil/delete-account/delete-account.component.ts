@@ -18,7 +18,6 @@ export class DeleteAccountComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private matDialog: MatDialog) { }
 
-
   //even when account is deleted
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
@@ -29,6 +28,7 @@ export class DeleteAccountComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // send to the api server the id of the deleting "artisan" 
   async deleteAccount(){
     //send my data to the backend server
     try {                                                       //j'envoie a l'Api id de l'utilisateur qui est connecter 
@@ -40,7 +40,6 @@ export class DeleteAccountComponent implements OnInit {
         this.openSnackBar("vos informations ont été mise a jour ! ", 'close');
       }
     } catch (error) {
-      console.log('error login data share');
       console.log(error);
     }
   }

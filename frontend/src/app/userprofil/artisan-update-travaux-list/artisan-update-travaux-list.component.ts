@@ -16,6 +16,7 @@ export class ArtisanUpdateTravauxListComponent implements OnInit {
 
   user;
   travaux= [];
+
   constructor(private authservice: Authservice,
     private profilService: ProfilInfosservice,
     public dialog: MatDialog,
@@ -23,6 +24,7 @@ export class ArtisanUpdateTravauxListComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar) { }
 
+  // initialization
   ngOnInit(): void {
     if (this.authservice.userId != null) {
       //with this route, I sent the ID of the user connected
@@ -32,14 +34,16 @@ export class ArtisanUpdateTravauxListComponent implements OnInit {
           this.travaux = this.user.travaux;
         })
     };
-    
   }
+
+  //display a given message
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 2500,
     });
   }
 
+  // send to the api server the id of the "travaux" to delete
   async deleteTravaux(id){
     try {
       let result = await this.http.delete<any>('http://localhost:8000/api/delete/travaux/' + id).toPromise();
@@ -57,6 +61,8 @@ export class ArtisanUpdateTravauxListComponent implements OnInit {
     }
     
   }
+
+  // naviagte to the modification dialog
   modifierTravaux(travail){
     this.dialog.closeAll();
     this.dialog.open(ArtisanUpdateTravauxComponent,{
@@ -65,6 +71,8 @@ export class ArtisanUpdateTravauxListComponent implements OnInit {
       }
     });
   }
+
+  // naviagte to the adding dialog
   ajouterTravail(){
     this.dialog.closeAll();
     this.dialog.open(ArtisanUpdateTravauxComponent);

@@ -34,6 +34,7 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
     });
   }
 
+  // initialization
   ngOnInit(): void {
 
     this.ArtisanForm = this.fb.group({
@@ -57,18 +58,20 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
           this.ArtisanForm.controls["Bio"].setValue(this.user.biographie);
         })
     };
-
-
   }
 
+  // the getter of the personal controler
   get personal() { return this.ArtisanForm.controls; }
-  //submit button will store value from my front to a variable call data and sent it to the Api
+
+  // validate the form
   validateForm() {
     this.submitted = true;
     if (!this.ArtisanForm.invalid) {
       this.SaveForm();
     }
   }
+  
+  //submit button will store value from my front to a variable call data and sent it to the Api
   async SaveForm() {
     const formData = this.ArtisanForm.getRawValue();
     const data = {
@@ -86,7 +89,6 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
         this.openSnackBar("vos informations ont été mise a jour ! ", 'close');
       }
     } catch (error) {
-      console.log('error login data share');
       console.log(error);
     }
   }

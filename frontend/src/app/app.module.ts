@@ -34,7 +34,7 @@ import { ArtisanUpdateBusInfoComponent } from './userprofil/artisan-update-bus-i
 import { ProfilInfosservice } from './services/profil-infos.service';
 import { ArtisanUpdatePasswordComponent } from './userprofil/artisan-update-password/artisan-update-password.component';
 import { ArtisanUpdateTravauxComponent } from './userprofil/artisan-update-travaux/artisan-update-travaux.component';
-
+import { refreshService} from './services/refresh.service'
 
 
 
@@ -84,7 +84,8 @@ import { ArtisanUpdateTravauxComponent } from './userprofil/artisan-update-trava
     ProfilInfosservice,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     CategoriesProfessionellesService,
-    Authservice
+    Authservice,
+    refreshService,
   ],
   bootstrap: [AppComponent]
 })

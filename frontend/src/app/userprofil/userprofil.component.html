@@ -43,7 +43,7 @@
                   <div class="mt-3">
                     <h4>{{user?.prenom}}</h4>
                     <p class="text-secondary mb-1" *ngIf="user?.biographie==null && authservice.isConnected; else bio_is">Biographie pas renseigné</p>
-                    <ng-template class="text-secondary mb-1" #bio_is>{{user?.biographie}}</ng-template>
+                    <ng-template class="text-secondary mb-1" #bio_is><p>{{user?.biographie}}</p></ng-template>
                   </div>
                 </div>
               </div>

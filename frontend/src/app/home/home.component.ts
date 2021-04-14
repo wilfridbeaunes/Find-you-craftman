@@ -27,7 +27,10 @@ export class HomeComponent implements OnInit {
   }
 
   openDialog(){
-    this.dialog.open(DialogComponent);
+    this.dialog.open(DialogComponent,
+      {
+        width: '600px',
+      });
   }
 
   //get all the categories

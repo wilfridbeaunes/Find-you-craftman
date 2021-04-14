@@ -98,7 +98,7 @@
                       </ng-container>
                     </mat-autocomplete>
                   <div *ngIf="(businessSubmitted && business.addr.errors) || (businessSubmitted && addrError)" class="invalid-feedback">
-                    <div *ngIf="business.addr.errors && business.addr.errors.required">le secteur d'activités est obligatoire</div>
+                    <div *ngIf="business.addr.errors && business.addr.errors.required">l'adresse postale est obligatoire</div>
                     <div *ngIf="addrError">Adresse invalid : veuillez choisir une adresse proposée</div>
                   </div>
                 </div>

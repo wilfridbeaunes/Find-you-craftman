@@ -13,6 +13,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'profil', component: UserprofilComponent},
+  {path: 'profil/:id', component: UserprofilComponent},
   {path: 'research', component: AroundMeComponent},
   {path: 'research/:cp/:act', component: AroundMeComponent},
 

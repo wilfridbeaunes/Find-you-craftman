@@ -94,7 +94,7 @@ export class MapComponent{
         lng: adresse.longitude,
       };
       var description = 
-      "<a href='profil'>"+artisan.prenom+" "+ artisan.nom+"</a>  de l'entreprise "+ artisan.entreprise.nom;
+      "<a href='profil/"+artisan.id+"'>"+artisan.prenom+" "+ artisan.nom+"</a>  de l'entreprise "+ artisan.entreprise.nom;
       const popupOptions = {
         coords: coordinates,
         text: description,

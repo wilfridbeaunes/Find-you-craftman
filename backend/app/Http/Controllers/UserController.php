@@ -16,10 +16,24 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 
 
-class Usercontroller extends Controller
+class UserController extends Controller
 {
+    public function getProfilInfos(Request $request){
+        $id= $request->input('id'); //id of the user connected 
 
-    //login
+        $compte=Compte::find($id);
+        $artisan= $compte->artisan()->get()->first();
+        $artisan->entreprise;
+        $artisan->entreprise->adresse;
+        $artisan->compte;
+        $travaux=$artisan->travaux;
+        foreach ($travaux as $travail) {
+            $travail->photos;
+        }
+        $artisan->professions;
+        return response()->json($artisan);
+    }
+    
     public function autentification(Request $request){   //user authentifition fuction
 
         $user= null; //  initialisation
@@ -125,6 +139,28 @@ class Usercontroller extends Controller
         }
     }
 
+    public function newTravaux(Request $request, Artisan $artisan){
+        try{
+            $travaux = new Travaux();
+            $travaux->date_debut = $request->input('dd');
+            $travaux->date_fin = $request->input('df');
+            $travaux->objectif = $request->input('obj');
+            // if($request->input('photos') != null){
+            //     foreach ($request->input('photos') as $image) {
+            //         $photo = new Photo();
+            //         $photo->logo= $image;
+            //         $travaux->photos->save($photo);
+            //     }
+            // }            
+            $artisan->travaux()->save($travaux);
+            $artisan->save();
+            return response()->json(['success'=>true, 'travaux'=>$travaux, 'error'=> null]);
+        }catch(QueryException $e){
+            $err = $e->getMessage();
+            return response()->json(['success'=>false, 'travaux'=>null, 'error'=> 'failure:'.$err]);
+        }
+    }
+
     public function attachProfession($artisan, $act){
         try{
             $profession=CategorieProfessionelle::find($act);
@@ -146,12 +182,91 @@ class Usercontroller extends Controller
         }   
     }
 
-        // user Logged
-    public function userlogin(Request $request){
-        echo Compte::all();
-        //autentification($request);
-        //return $request->ompte();
+    public function updateArtisan(Request $request, Artisan $artisan){
 
+        $artisan->nom=$request->input('nom');
+        $artisan->prenom=$request->input('prenom');
+        $artisan->telephone=$request->input('phone');
+        $artisan->biographie=$request->input('bio');
+        $artisan->save();
+        
+        return response()->json(['success'=>true, 'artisan'=>$artisan, 'error'=> null]);
     }
 
+    public function updateEntreprise(Request $request, Entreprise $entreprise, Artisan $artisan){
+
+        $entreprise->nom=$request->input('nom');
+        $entreprise->url=$request->input('url');
+        $entreprise->logo=$request->input('logo');
+        $entreprise->save();
+
+        $adresse = $entreprise->adresse;
+        $adresse->adresse_postale=$request->input('addr');
+        $adresse->code_postal=$request->input('cp');
+        $adresse->cp_commune=$request->input('cc');
+        $adresse->longitude=$request->input('lon');
+        $adresse->latitude=$request->input('lat');
+        $adresse->save();
+        
+        $cat= $artisan->professions->first();
+        $newCat= CategorieProfessionelle::find($request->input('act'));
+
+        if($cat->id != $newCat->id){
+            $artisan->professions()->detach($cat);
+            $artisan->save();
+            $artisan->professions()->attach($newCat);
+            $artisan->save();
+        }
+        
+        return response()->json(['success'=>true,'artisan'=>$artisan,'entreprise'=>$entreprise, 'error'=> null]);
+    }
+
+    public function updateTravaux(Request $request, Travaux $travaux){
+
+        $travaux->date_debut = $request->input('dd');
+        $travaux->date_fin = $request->input('df');
+        $travaux->objectif = $request->input('obj');
+        if($request->input('photos')!=null){
+            $travaux->photos->delete();
+            foreach ($request->input('photos') as $image) {
+                $photo = new Photo();
+                $photo->logo= $image;
+                $travaux->photos->save($photo);
+            }
+        }
+        $travaux->save();
+    
+        return response()->json(['success'=>true,'travaux'=>$travaux, 'error'=> null]);
+    }
+
+    public function IsCurrentPassword(Request $request, Compte $compte){
+        $same = password_verify($request->input('password'), $compte->password);
+        return response()->json(['same'=>$same]);
+    }
+
+    public function updateCompte(Request $request, Compte $compte){
+        $compte->password = password_hash($request->input('password'), PASSWORD_DEFAULT); 
+        $compte->save();
+        return response()->json(['success'=>true,'compte'=>$compte, 'error'=> null]);
+    }
+    
+    public function deleteCompte(Compte $compte){
+        try{
+            $compte->delete();
+            return response()->json(['success'=>true, 'error'=>null]);
+        }catch(QueryException $e){
+            $err = $e->getMessage();
+            return response()->json(['success'=>false, 'error'=>"failure:$err"]);
+        }
+    }
+
+    public function deleteTravaux(Travaux $travaux){
+        try{
+            $travaux->delete();
+            return response()->json(['success'=>true, 'error'=>null]);
+        }catch(QueryException $e){
+            $err = $e->getMessage();
+            return response()->json(['success'=>false, 'error'=>"failure:$err"]);
+        }
+    }
 }

@@ -22,7 +22,7 @@ class CreateProfessionArtisan extends Migration
                   ->on('categories_professionelles');
             $table->foreign('artisan_id')
                   ->references('id')
-                  ->on('artisans');
+                  ->on('artisans')->onDelete('cascade');;
 
             $table->primary(['categorie_pro_id', 'artisan_id']);
         });

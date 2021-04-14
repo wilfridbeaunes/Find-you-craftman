@@ -14,12 +14,15 @@ class Travaux extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'date_debut', 'date_fin', 'objectif', 'biographie', 'image_profil','artisan_id'
+        'date_debut', 'date_fin', 'objectif','artisan_id'
     ];
 
     public function artisan()
     {
         return $this->belongsTo(Artisan::class, 'artisan_id');
+    }
+    public function photos(){
+        return $this->hasMany(Photo::class);
     }
     
 }

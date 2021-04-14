@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +29,16 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { Authservice } from './services/auth.service';
+import { ArtisanUpdatePersInfoComponent } from './userprofil/artisan-update-pers-info/artisan-update-pers-info.component';
+import { DeleteAccountComponent } from './userprofil/delete-account/delete-account.component';
+import { ArtisanUpdateBusInfoComponent } from './userprofil/artisan-update-bus-info/artisan-update-bus-info.component';
+import { ProfilInfosservice } from './services/profil-infos.service';
+import { ArtisanUpdatePasswordComponent } from './userprofil/artisan-update-password/artisan-update-password.component';
+import { ArtisanUpdateTravauxComponent } from './userprofil/artisan-update-travaux/artisan-update-travaux.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { ArtisanUpdateTravauxListComponent } from './userprofil/artisan-update-travaux-list/artisan-update-travaux-list.component';
+
+
 
 
 @NgModule({
@@ -40,6 +51,13 @@ import { Authservice } from './services/auth.service';
     UserprofilComponent,
     MapComponent,
     AroundMeComponent,
+    ArtisanUpdatePersInfoComponent,
+    DeleteAccountComponent,
+    ArtisanUpdateBusInfoComponent,
+    ArtisanUpdatePasswordComponent,
+    ArtisanUpdateTravauxComponent,
+    ArtisanUpdateTravauxListComponent,
+    
 
   ],
   entryComponents:[DialogComponent],
@@ -62,14 +80,17 @@ import { Authservice } from './services/auth.service';
     MatButtonModule,
     MatListModule,
     MatCardModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatExpansionModule,
+    MatGridListModule
   ],
   providers: [
     LocationService,
     ResearchService,
+    ProfilInfosservice,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     CategoriesProfessionellesService,
-    Authservice
+    Authservice,
   ],
   bootstrap: [AppComponent]
 })

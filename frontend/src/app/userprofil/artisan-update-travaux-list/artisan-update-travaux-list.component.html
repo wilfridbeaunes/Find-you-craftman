@@ -1,0 +1,28 @@
+<nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/profil" mat-dialog-close>Profil</a></li>
+        <li class="breadcrumb-item active" aria-current="page"> Modification travaux</li>
+    </ol>
+</nav>
+<mat-dialog-content>
+    <mat-nav-list>
+        <mat-grid-list *ngFor="let travail of travaux" cols="5" rowHeight="2:1">
+            <mat-grid-tile [colspan]="4">
+                <a mat-list-item (click)="modifierTravaux(travail)">
+                    <div mat-line>{{travail.objectif}}</div>
+                    <div mat-line> {{travail.date_debut| date }} - {{travail.date_fin| date }} </div>
+                </a>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button mat-stroked-button color="warn" (click)="deleteTravaux(travail.id)">Effacer</button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-nav-list>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close routerLink="/profil"
+        style="background-color:#47566a; color: white;">Retour</button>
+    <button mat-button mat-dialog-close (click)="ajouterTravail()"
+        style="background-color:green; color: white;">Ajouter un travail réalisé</button>
+</mat-dialog-actions>

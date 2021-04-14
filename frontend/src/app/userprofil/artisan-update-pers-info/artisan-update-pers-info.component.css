@@ -51,8 +51,3 @@ body{
 .shadow-none {
     box-shadow: none!important;
 }
-
-.mat-form-field + .mat-form-field {
-    margin-left: 8px;
-  }
-  

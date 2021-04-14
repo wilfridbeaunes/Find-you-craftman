@@ -1,29 +1,202 @@
+<div>
+  <div class="container">
+    <div class="main-body">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+          <li class="breadcrumb-item" aria-current="page">Profil utilisateur</li>
+          <li class="ml-auto" *ngIf="!visiter">
+              <button [matMenuTriggerFor]="menu" mat-flat-button color="primary" aria-label="Example icon button with a delete icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+              </svg> Paramétres
+              </button>
+            <mat-menu #menu>
+              <button mat-menu-item (click)="openDialogModifierPers()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+              </svg> Modifier informations personnelles</button>
+              <button mat-menu-item (click)="openDialogModifierBus()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase-fill" viewBox="0 0 16 16">
+                <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5z"/>
+                <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z"/>
+              </svg> Modifier informations d'entreprise</button>
+              <button mat-menu-item (click)="openDialogModifierTrav()"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trophy-fill" viewBox="0 0 16 16">
+                <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935z"/>
+              </svg> Modifier travaux réalisés</button>
+              <button mat-menu-item (click)="openDialogModifierPwd()"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-lock-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.777 11.777 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7.159 7.159 0 0 0 1.048-.625 11.775 11.775 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.541 1.541 0 0 0-1.044-1.263 62.467 62.467 0 0 0-2.887-.87C9.843.266 8.69 0 8 0zm0 5a1.5 1.5 0 0 1 .5 2.915l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99A1.5 1.5 0 0 1 8 5z"/>
+              </svg> Modifier mot de passe</button>
+              <button mat-menu-item (click)="openDialogDeletaAccount()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+              </svg> Supprimer votre compte</button>
+            </mat-menu>
+          </li>
+        </ol>
+      </nav>
+      <!-- /Breadcrumb -->
 
-    
+      <div class="row gutters-sm">
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-column align-items-center text-center">
 
-<div class="backcolor">
-    <div class="container">
-    <form>
-        <div class='photo'>
-            <img class="profile-image mb-3 mb-md-0 mr-md-5 ml-md-0 rounded mx-auto" src="" alt="">
-        </div>
-        <div class="edifier" >
-            <button class="btn btn-hg btn-primary" style="background-color:#438be9;">Edifier</button>
-        </div>
-    </form>
+                <!-- if picture is not null-->
+                <div *ngIf='user?.image_profil!=null; else picture' class="rounded-circle" width="150">
+                  {{user?.image_profil}}
+                </div>
+                <!--else -->
+                <!-- Put this image as long the user didn't change his profil picture -->
+                <ng-template #picture>
+                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded-circle" width="150">
+                </ng-template>
+                <!-- 
+                  <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput> 
+                  <a (click)="fileInput.click()" routerLink="#" *ngIf="authservice.isConnected"> Edifier</a> -->
 
-    <form class="biography">
-        <div class="py-5">
-            <h2 class="mt-0 display-4 font-weight-bold">Steve Doe</h2>
-            <div class="form">
-                I'm a full-stack developer specialised in frontend and backend development 
-                for complex scalable web apps. I write about web development on my blog 
-                and regularly at various web conferences and meetups. Want to know how I 
-                may help your project? Check out my project case studies and resume.
-            </div><!--//bio-->   
+                <div class="mt-3">
+                  <h4>{{user?.prenom}}</h4>
+                  <p class="text-secondary mb-1" *ngIf="user?.biographie==null && authservice.isConnected; else bio_is">
+                    Biographie pas renseigné</p>
+                  <ng-template #bio_is style="white-space:nowrap;"><p class="text-secondary mb-1 ">{{user?.biographie}}</p></ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mt-3">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h5 class="mb-0">Nom de l'entreprise</h5>
+                <span class="text-secondary">{{user?.entreprise.nom}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-globe mr-2 icon-inline">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path
+                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                    </path>
+                  </svg>Site web</h6>
+                <span class="text-secondary" *ngIf="user?.entreprise.url==null && authservice.isConnected; else url">
+                  Url pas renseigné</span>
+
+              </li>
+              <ng-template #url>
+                <spam class="text-secondary" routerLink="#"> {{user?.entreprise.url}}</spam>
+              </ng-template>
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <div>
+                  <h5><strong>Gatégorie(s) professionelle(s)</strong></h5>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <div class="text-secondary" *ngFor="let job of user?.professions">
+                    {{job.titre}}
+                    <!-- {{job.description}} -->
+                  </div>
+                </div>
+              </li>
+              <!-- <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h5 class="mb-0">Logo</h5>
+                <span  *ngIf="user?.entreprise.logo==null && authservice.isConnected; else logo" class="text-secondary"> Logo pas renseigné</span>
+              </li>
+              <ng-template #logo>
+                <span  class="text-secondary">{{user?.entreprise.logo}}</span>
+              </ng-template> -->
+            </ul>
+          </div>
+
         </div>
-    </form>
+        <div class="col-md-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Nom prenom</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{user?.nom |uppercase}} {{user?.prenom |uppercase}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{user?.compte.email}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Télephone</h6>
+                </div>
+                <div class="col-sm-9 text-secondary"
+                  *ngIf="user?.telephone==null && authservice.isConnected; else phone">
+                  Numero pas reseigné
+                </div>
+                <ng-template class="col-sm-9 text-secondary" #phone>
+                  <div class="col-sm-9 text-secondary">
+                    {{user?.telephone}}
+                  </div>
+                </ng-template>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Adress postale</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{user?.entreprise.adresse.adresse_postale}}
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row gutters-sm">
+            <div class="col-sm-12 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h6 class="d-flex align-items-center mb-3"><i
+                    class="material-icons text-info mr-2">assignment</i>Travaux réalisés
+                  </h6>
+                  <div *ngIf="user?.travaux?.length<=0 && authservice.isConnected; else travaux_is">
+                    <div class="text-secondary text-center">
+                      Pas de travail effectué reseigné
+                    </div>
+                  </div>
+                  <ng-template #travaux_is>
+                    <div *ngFor="let travail of user?.travaux">
+                        <div>
+                          <mat-accordion>
+                            <mat-expansion-panel>
+                              <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                {{travail.objectif}}
+                                </mat-panel-title>
+                                <!--<mat-panel-description>
+                                  T {{travail.date_debut}} - {{travail.date_fin}}
+                                </mat-panel-description>-->
+                              </mat-expansion-panel-header>
+                              {{travail.date_debut | date :'mediumDate'}} - {{travail.date_fin| date :'mediumDate'}}
+                            </mat-expansion-panel>
+                            <div class="progress mb-3" style="height: 5px">
+                              <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="80"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </mat-accordion>
+                        </div>
+                    </div>
+                   </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
-
-

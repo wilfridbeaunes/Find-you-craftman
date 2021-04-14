@@ -18,6 +18,11 @@ class CreateTravauxTable extends Migration
             $table->dateTime('date_debut');
             $table->dateTime('date_fin');
             $table->text('objectif');
+            $table->foreignId('artisan_id');
+
+            $table->foreign('artisan_id')
+              ->references('id')
+              ->on('artisans')->onDelete('cascade');;
         });
     }
 

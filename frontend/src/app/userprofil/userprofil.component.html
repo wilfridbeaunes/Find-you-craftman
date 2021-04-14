@@ -179,7 +179,7 @@
                                   T {{travail.date_debut}} - {{travail.date_fin}}
                                 </mat-panel-description>-->
                               </mat-expansion-panel-header>
-                              {{travail.date_debut}} - {{travail.date_fin}}
+                              {{travail.date_debut | date :'mediumDate'}} - {{travail.date_fin| date :'mediumDate'}}
                             </mat-expansion-panel>
                             <div class="progress mb-3" style="height: 5px">
                               <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="80"

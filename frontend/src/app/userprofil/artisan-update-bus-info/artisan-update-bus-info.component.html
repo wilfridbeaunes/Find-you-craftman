@@ -3,7 +3,7 @@
     <nav aria-label="breadcrumb" class="main-breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a routerLink="profil" mat-dialog-close>Profil</a></li>
-            <li class="breadcrumb-item active" aria-current="page"> Modification des Informations entreprise</li>
+            <li class="breadcrumb-item active" aria-current="page"> Modification des informations entreprise</li>
         </ol>
     </nav>
     <mat-dialog-content class="mat-typography">
@@ -26,7 +26,7 @@
                 </option>
             </select>
             <div *ngIf="submitted && business.act.errors" class="invalid-feedback">
-                <div *ngIf="business.act.errors.required">le secteur d'activités est obligatoire</div>
+                <div *ngIf="business.act.errors.required">le secteur d'activité est obligatoire</div>
             </div>
         </div>
         <div class="form-group">

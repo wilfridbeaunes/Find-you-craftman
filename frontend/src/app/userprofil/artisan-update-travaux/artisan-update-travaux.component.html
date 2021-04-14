@@ -16,7 +16,7 @@
                 <input type="date" class="form-control" formControlName="dd"
                     [ngClass]="{ 'is-invalid': submitted && job.dd.errors }" required>
                 <div *ngIf="submitted && job.dd.errors" class="invalid-feedback">
-                    <div *ngIf="job.dd.errors.required">champs obligatoire</div>
+                    <div *ngIf="job.dd.errors.required">Champs obligatoire</div>
                 </div>
             </div>
             <div class="form-group col-6">
@@ -24,7 +24,7 @@
                 <input type="date" class="form-control" formControlName="df"
                     [ngClass]="{ 'is-invalid': submitted && job.df.errors }" required>
                     <div *ngIf="submitted && job.df.errors" class="invalid-feedback">
-                        <div *ngIf="job.df.errors.required">champs obligatoire</div>
+                        <div *ngIf="job.df.errors.required">Champs obligatoire</div>
                         <div *ngIf="job.df.errors.date">Date de fin > ou = à date de debut</div>
                     </div>
             </div>

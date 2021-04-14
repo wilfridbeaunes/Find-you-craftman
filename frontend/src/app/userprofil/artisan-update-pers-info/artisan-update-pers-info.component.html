@@ -21,7 +21,7 @@
         <input type="text" class="form-control" formControlName="Prenom"
           [ngClass]="{ 'is-invalid': submitted && personal.Prenom.errors }" required>
         <div *ngIf="submitted && personal.Prenom.errors" class="invalid-feedback">
-          <div *ngIf="personal.Prenom.errors.required">le prenom est obligatoire</div>
+          <div *ngIf="personal.Prenom.errors.required">Le prenom est obligatoire</div>
         </div>
       </div>
     </div>

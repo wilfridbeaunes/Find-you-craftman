@@ -130,13 +130,13 @@ class UserController extends Controller
             $travaux->date_debut = $request->input('dd');
             $travaux->date_fin = $request->input('df');
             $travaux->objectif = $request->input('obj');
-            if($request->input('photos') != null){
-                foreach ($request->input('photos') as $image) {
-                    $photo = new Photo();
-                    $photo->logo= $image;
-                    $travaux->photos->save($photo);
-                }
-            }            
+            // if($request->input('photos') != null){
+            //     foreach ($request->input('photos') as $image) {
+            //         $photo = new Photo();
+            //         $photo->logo= $image;
+            //         $travaux->photos->save($photo);
+            //     }
+            // }            
             $artisan->travaux()->save($travaux);
             $artisan->save();
             return response()->json(['success'=>true, 'travaux'=>$travaux, 'error'=> null]);
@@ -219,6 +219,7 @@ class UserController extends Controller
                 $travaux->photos->save($photo);
             }
         }
+        $travaux->save();
     
         return response()->json(['success'=>true,'travaux'=>$travaux, 'error'=> null]);
     }
@@ -236,6 +237,16 @@ class UserController extends Controller
     public function deleteCompte(Compte $compte){
         try{
             $compte->delete();
+            return response()->json(['success'=>true, 'error'=>null]);
+        }catch(QueryException $e){
+            $err = $e->getMessage();
+            return response()->json(['success'=>false, 'error'=>"failure:$err"]);
+        }
+    }
+
+    public function deleteTravaux(Travaux $travaux){
+        try{
+            $travaux->delete();
             return response()->json(['success'=>true, 'error'=>null]);
         }catch(QueryException $e){
             $err = $e->getMessage();

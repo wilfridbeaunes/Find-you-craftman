@@ -25,7 +25,7 @@ Route::post('login',[UserController::class, 'autentification']);
 Route::post('signup',[UserController::class, 'inscription']);
 
 //route to create a new travaux
-Route::post('travaux/{artisan}',[UserController::class, 'newTravaux']);
+Route::post('artisan/{artisan}/travaux',[UserController::class, 'newTravaux']);
 
 //route to update compte informations
 Route::post('compte/{compte}',[UserController::class, 'updateCompte']);
@@ -41,6 +41,9 @@ Route::post('travaux/{travaux}',[UserController::class, 'updateTravaux']);
 
 //route to update travaux informations
 Route::get('delete/{compte}',[UserController::class, 'deleteCompte']);
+
+//route to update travaux informations
+Route::delete('delete/travaux/{travaux}',[UserController::class, 'deleteTravaux']);
 
 
 //route to check if a given email already exists in the database

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +35,7 @@ import { ArtisanUpdateBusInfoComponent } from './userprofil/artisan-update-bus-i
 import { ProfilInfosservice } from './services/profil-infos.service';
 import { ArtisanUpdatePasswordComponent } from './userprofil/artisan-update-password/artisan-update-password.component';
 import { ArtisanUpdateTravauxComponent } from './userprofil/artisan-update-travaux/artisan-update-travaux.component';
+import { ArtisanUpdateTravauxListComponent } from './userprofil/artisan-update-travaux-list/artisan-update-travaux-list.component';
 
 
 
@@ -53,7 +55,8 @@ import { ArtisanUpdateTravauxComponent } from './userprofil/artisan-update-trava
     ArtisanUpdateBusInfoComponent,
     ArtisanUpdatePasswordComponent,
     ArtisanUpdateTravauxComponent,
-  
+    ArtisanUpdateTravauxListComponent,
+    
 
   ],
   entryComponents:[DialogComponent],
@@ -76,7 +79,8 @@ import { ArtisanUpdateTravauxComponent } from './userprofil/artisan-update-trava
     MatButtonModule,
     MatListModule,
     MatCardModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatGridListModule
   ],
   providers: [
     LocationService,

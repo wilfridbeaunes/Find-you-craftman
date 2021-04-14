@@ -1,38 +1,45 @@
-<form [formGroup]="travauxForm" (submit)=SaveForm()>
+<form [formGroup]="travauxForm" (submit)=validateForm()>
     <nav aria-label="breadcrumb" class="main-breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a routerLink="/profil" mat-dialog-close >Profil</a></li>
-          <li class="breadcrumb-item active" aria-current="page"> Modification ces Travaux </li>
+            <li class="breadcrumb-item"><a routerLink="/profil" mat-dialog-close>Profil</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Modification les travaux réalisés </li>
         </ol>
-      </nav>
+    </nav>
     <mat-dialog-content class="mat-typography">
-     
+
         <div class="form-row">
             <div class="form-group col-12">
-                <label >Objectif</label>
-                <input type="text" class="form-control" formControlName="obj">
+                <label>Description du travail</label>
+                <input type="text" class="form-control" formControlName="obj"
+                    [ngClass]="{ 'is-invalid': submitted && job.obj.errors }" required>
+                <div *ngIf="submitted && job.obj.errors" class="invalid-feedback">
+                    <div *ngIf="job.obj.errors.required">champs obligatoire</div>
+                </div>
             </div>
             <div class="form-group col-6">
-                <label >date de debut</label>
-                <input type="date" class="form-control" formControlName="df">
+                <label>Date de debut</label>
+                <input type="date" class="form-control" formControlName="dd"
+                    [ngClass]="{ 'is-invalid': submitted && job.dd.errors }" required>
+                <div *ngIf="submitted && job.dd.errors" class="invalid-feedback">
+                    <div *ngIf="job.dd.errors.required">champs obligatoire</div>
+                </div>
             </div>
             <div class="form-group col-6">
-                <label >date de fin</label>
-                <input type="date" class="form-control" formControlName="df" >
-            </div> 
-            <label >Photo : </label>
-            <div class="form-group col-12">
-                <input style="display:none" type='file' (change)="onFileSelected($event)" #fileInput formControlName="photos"> 
-                <button type ="button" (click)="fileInput.click()" routerLink="#" style="background-color:#074ba3;"> Impoter une photo</button>
+                <label>Date de fin</label>
+                <input type="date" class="form-control" formControlName="df"
+                    [ngClass]="{ 'is-invalid': submitted && job.df.errors }" required>
+                    <div *ngIf="submitted && job.df.errors" class="invalid-feedback">
+                        <div *ngIf="job.df.errors.required">champs obligatoire</div>
+                        <div *ngIf="job.df.errors.date">Date de fin > ou = à date de debut</div>
+                    </div>
             </div>
         </div>
 
     </mat-dialog-content>
 
-    <mat-dialog-actions >
-    <button mat-button mat-dialog-close routerLink="/profil" style="background-color:#47566a;">retour</button>
-    <button mat-button  style="background-color:#47566a;" type="submit">valider</button>
+    <mat-dialog-actions>
+        <button mat-button mat-dialog-close (click)="annuler()" style="background-color:#47566a; color: white;">Annuler</button>
+        <button mat-button style="background-color:dodgerblue; color: white;" type="submit">Valider</button>
     </mat-dialog-actions>
 
 </form>
-

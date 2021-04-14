@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup, ValidatorFn } from '@angular/forms';
+import {FormGroup } from '@angular/forms';
 
 // custom validator to check that two fields match
 export class CustomeDateValidators {
@@ -6,15 +6,15 @@ export class CustomeDateValidators {
         return (formGroup: FormGroup) => {
             const debutControl = formGroup.controls[dateDebut];
             const finControl = formGroup.controls[dateFin];
-        
+
             if (finControl.errors && !finControl.errors.date) {
                 return;
-            }            
-           // Ausing the fromDate and toDate are numbers. In not convert them first after null check
+            }
+            // check if the date debut is before than date fin
             if ((debutControl.value !== '' && finControl.value !== '') && debutControl.value > finControl.value) {
                 finControl.setErrors({ date: true });
-            }else{
-                finControl.setErrors(null); 
+            } else {
+                finControl.setErrors(null);
             }
             return;
         };

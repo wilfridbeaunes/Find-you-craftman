@@ -1,5 +1,4 @@
 <form [formGroup]="entrepriseForm" (submit)=ValidateForm()>
-
     <nav aria-label="breadcrumb" class="main-breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a routerLink="profil" mat-dialog-close>Profil</a></li>
@@ -7,7 +6,6 @@
         </ol>
     </nav>
     <mat-dialog-content class="mat-typography">
-
         <div class="form-group">
             <label class="mat-label">Nom de votre entreprise</label>
             <input type="text" class="form-control" type="text"
@@ -55,7 +53,6 @@
             </div>
         </div>
     </mat-dialog-content>
-
     <mat-dialog-actions>
         <button mat-button mat-dialog-close routerLink="/profil"
             style="background-color:#47566a;color: white;">Annuler</button>

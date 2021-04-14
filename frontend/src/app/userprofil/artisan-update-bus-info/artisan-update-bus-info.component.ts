@@ -9,6 +9,7 @@ import { Authservice } from 'src/app/services/auth.service';
 import { CategoriesProfessionellesService } from 'src/app/services/categories-professionnelles.service';
 import { LocationService } from 'src/app/services/location.service';
 import { ProfilInfosservice } from 'src/app/services/profil-infos.service';
+import { ProfilService } from 'src/app/services/profil.service';
 
 @Component({
   selector: 'app-artisan-update-bus-info',
@@ -17,162 +18,162 @@ import { ProfilInfosservice } from 'src/app/services/profil-infos.service';
 })
 export class ArtisanUpdateBusInfoComponent implements OnInit {
 
-  
+
   public entrepriseForm: FormGroup;
-  selectedLogo: File = null;
-  adressesFrance=[];
+  adressesFrance = [];
   fullAdresse;
-  isLoading=false;
-  addrError= false;
-  submitted=false;
+  isLoading = false;
+  addrError = false;
+  submitted = false;
   categories;
   user;
   entreprise;
-  
+
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     public authservice: Authservice,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private profilService:ProfilInfosservice,
+    private infoService: ProfilInfosservice,
     private locationService: LocationService,
     private catProService: CategoriesProfessionellesService,
-    private matDialog : MatDialog) {
-    }
+    private matDialog: MatDialog,
+    private profileService : ProfilService) {
+  }
 
-    //even when edit have been updated
+  //display a message
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 2500,
     });
   }
 
+  // initialization
   ngOnInit(): void {
     this.categories = this.getAllCategories();
-    this.categories= Array();
+    this.categories = Array();
 
     this.entrepriseForm = this.fb.group({
       nom: ['', Validators.required],
       addr: '',
       act: ['', Validators.required],
-      url:'',
+      url: '',
     });
 
-    if(this.authservice.userId != null){
+    if (this.authservice.userId != null) {
       //with this route, I sent the ID of the user connected
-      this.profilService.getProfilInfo().subscribe(
-        (result:any)=>{
+      this.infoService.getProfilInfo().subscribe(
+        (result: any) => {
           console.log(result);
-          this.user=result;
+          this.user = result;
           this.entreprise = this.user.entreprise;
           // Set Values form edit
           this.entrepriseForm.controls["nom"].setValue(this.user.entreprise.nom);
           this.entrepriseForm.controls["addr"].setValue(this.user.entreprise.adresse.adresse_postale);
           this.entrepriseForm.controls["url"].setValue(this.user.entreprise.url);
-          // this.entrepriseForm.controls["logo"].setValue(this.user.entreprise.logo);
           this.entrepriseForm.controls["act"].setValue(this.user.professions[0].id);
-      })
+        })
     };
-    
+
     this.business.addr.valueChanges
-    .pipe(
-      debounceTime(500),
-      tap(() => {
-        this.adressesFrance
-        this.isLoading = true;
-      }),
-      switchMap(value =>this.locationService.getAutoComplete(value)
-        .pipe(
-          finalize(() => {
-            this.isLoading = false
-          }),
+      .pipe(
+        debounceTime(500),
+        tap(() => {
+          this.adressesFrance
+          this.isLoading = true;
+        }),
+        switchMap(value => this.locationService.getAutoComplete(value)
+          .pipe(
+            finalize(() => {
+              this.isLoading = false
+            }),
+          )
         )
       )
-    )
-    .subscribe(data => {
-      this.addrError= false;
-      var adresses = data['features'];
-      var results = [];
-      if (adresses.length == 0) {
-        this.adressesFrance = [];
-      } else {
-        adresses.forEach(addr => {
-          results.push(addr.properties.label);
-        });
-        this.adressesFrance = results;
-      }
-    });
+      .subscribe(data => {
+        this.addrError = false;
+        var adresses = data['features'];
+        var results = [];
+        if (adresses.length == 0) {
+          this.adressesFrance = [];
+        } else {
+          adresses.forEach(addr => {
+            results.push(addr.properties.label);
+          });
+          this.adressesFrance = results;
+        }
+      });
 
   }
+
+  // the getter for the business controler
   get business() { return this.entrepriseForm.controls; }
 
-  // logo 
-  onFileSelected(event){ 
-    this.selectedLogo=<File>event.target.files[0];
-  };
-    //submit button will store value from my front to a variable call data and sent it to the Api
-  
-    ValidateForm(){
-    this.submitted= true;
-    if(!this.entrepriseForm.invalid){
-      if(this.adressesFrance.length>0 && this.business.addr.value == this.adressesFrance[0]){
+  //submit button will store value from my front to a variable call data and sent it to the Api
+  ValidateForm() {
+    this.submitted = true;
+    if (!this.entrepriseForm.invalid) {
+      if (this.adressesFrance.length > 0 && this.business.addr.value == this.adressesFrance[0]) {
         this.locationService.getFullAdresseInformations(this.business.addr.value).subscribe(
-          (result:any)=>{   
+          (result: any) => {
             this.fullAdresse = {
               addr: result.features[0].properties.label,
               pc: result.features[0].properties.postcode,
-              cc:result.features[0].properties.citycode,
+              cc: result.features[0].properties.citycode,
               lon: result.features[0].geometry.coordinates[0],
-              lat:result.features[0].geometry.coordinates[1]
+              lat: result.features[0].geometry.coordinates[1]
             };
             this.SaveForm();
           },
-          error=>{
-            console.log(error);            
+          error => {
+            console.log(error);
           }
         );
-        
-      }else{
-        this.addrError= true;
+
+      } else {
+        this.addrError = true;
       }
     }
   }
+
+  // send the data de the database
   async SaveForm() {
-    
+
     const formData = this.entrepriseForm.getRawValue();
     const data = {
-      nom:formData.nom,
-      addr:formData.addr,
-      act:formData.act,
-      url:formData.url,
+      nom: formData.nom,
+      addr: formData.addr,
+      act: formData.act,
+      url: formData.url,
       cp: this.fullAdresse.pc,
       cc: this.fullAdresse.cc,
-      lon : this.fullAdresse.lon,
+      lon: this.fullAdresse.lon,
       lat: this.fullAdresse.lat
-      // logo:this.selectedLogo.name
     }
 
     //send my data to the backend server
     try {
-      let result = await this.http.patch<any>('http://localhost:8000/api/entreprise/'+this.entreprise.id+'/artisan/'+this.user.id, data).toPromise();
+      let result = await this.profileService.patchEntreprise(data, this.entreprise.id, this.user.id);
       if (result.success) {
         this.router.navigate(['profil']); //route when data was updated well 
         this.matDialog.closeAll();
         this.openSnackBar("vos informations ont été mise a jour ! ", 'close');
-      }else{
+      } else {
         console.log(result.error);
       }
     } catch (error) {
       console.log(error);
     }
   }
-  getAllCategories(){
+
+  // get all the database categories
+  getAllCategories() {
     return this.catProService.getAllCategories().subscribe(
-      (result:any)=>{                
-        this.categories = result;        
+      (result: any) => {
+        this.categories = result;
       },
-      error=>{
+      error => {
         console.log(error);
       }
     );

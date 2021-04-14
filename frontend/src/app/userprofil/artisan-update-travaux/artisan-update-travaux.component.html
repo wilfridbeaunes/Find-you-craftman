@@ -1,7 +1,5 @@
 <form [formGroup]="travauxForm" (submit)=validateForm()>
-
     <mat-dialog-content class="mat-typography">
-
         <div class="form-row">
             <div class="form-group col-12">
                 <label>Description du travail</label>
@@ -29,12 +27,10 @@
                     </div>
             </div>
         </div>
-
     </mat-dialog-content>
-
     <mat-dialog-actions>
-        <button mat-button mat-dialog-close (click)="annuler()" style="background-color:#47566a; color: white;">Retour</button>
+        <button mat-button mat-dialog-close (click)="annuler()"
+            style="background-color:#47566a; color: white;">Retour</button>
         <button mat-button style="background-color:dodgerblue; color: white;" type="submit">Valider</button>
     </mat-dialog-actions>
-
 </form>

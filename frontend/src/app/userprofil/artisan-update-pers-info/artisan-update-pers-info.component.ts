@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProfilInfosservice } from 'src/app/services/profil-infos.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ProfilService } from 'src/app/services/profil.service';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar,
     private matDialog: MatDialog,
-    private profiService: ProfilInfosservice) {
+    private infoService: ProfilInfosservice,
+    private profilService : ProfilService) {
   }
 
   //even when edit have been updated
@@ -34,6 +36,7 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
     });
   }
 
+  // initialization
   ngOnInit(): void {
 
     this.ArtisanForm = this.fb.group({
@@ -46,7 +49,7 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
 
     if (this.authservice.userId != null) {
       //with this route, I sent the ID of the user connected
-      this.profiService.getProfilInfo().subscribe(
+      this.infoService.getProfilInfo().subscribe(
         (result: any) => {
           this.user = result;
           // Set the Values form edit
@@ -57,18 +60,20 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
           this.ArtisanForm.controls["Bio"].setValue(this.user.biographie);
         })
     };
-
-
   }
 
+  // the getter of the personal controler
   get personal() { return this.ArtisanForm.controls; }
-  //submit button will store value from my front to a variable call data and sent it to the Api
+
+  // validate the form
   validateForm() {
     this.submitted = true;
     if (!this.ArtisanForm.invalid) {
       this.SaveForm();
     }
   }
+  
+  //submit button will store value from my front to a variable call data and sent it to the Api
   async SaveForm() {
     const formData = this.ArtisanForm.getRawValue();
     const data = {
@@ -79,14 +84,13 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
     }
     //send my data to the backend server
     try {
-      let result = await this.http.patch<any>('http://localhost:8000/api/artisan/' + this.user.id, data).toPromise();
+      let result = await this.profilService.patchArtisan(data, this.user.id);
       if (result.success) {
         this.router.navigate(['profil']); //route when data was updated well 
         this.matDialog.closeAll();
         this.openSnackBar("vos informations ont été mise a jour ! ", 'close');
       }
     } catch (error) {
-      console.log('error login data share');
       console.log(error);
     }
   }

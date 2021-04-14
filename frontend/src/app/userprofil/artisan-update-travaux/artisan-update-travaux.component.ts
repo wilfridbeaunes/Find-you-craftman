@@ -1,13 +1,14 @@
-import { DatePipe, formatDate } from '@angular/common';
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CustomeDateValidators } from 'src/app/helpers/date.validator';
 import { Authservice } from 'src/app/services/auth.service';
 import { ProfilInfosservice } from 'src/app/services/profil-infos.service';
+import { ProfilService } from 'src/app/services/profil.service';
 import { ArtisanUpdateTravauxListComponent } from '../artisan-update-travaux-list/artisan-update-travaux-list.component';
 
 @Component({
@@ -23,35 +24,31 @@ export class ArtisanUpdateTravauxComponent implements OnInit {
   user;
   travail;
 
-
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     public authservice: Authservice,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private profiService: ProfilInfosservice,
-    private matDialog: MatDialogRef<ArtisanUpdateTravauxComponent>,
+    private infoService: ProfilInfosservice,
+    private profilService: ProfilService,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data,
-    ) {
+  ) {}
 
-  }
-
+  // initalization
   ngOnInit(): void {
 
     if (this.data != null) {
       this.travail = this.data.travail;
     }
-
     if (this.authservice.userId != null) {
       //with this route, I sent the ID of the user connected
-      this.profiService.getProfilInfo().subscribe(
+      this.infoService.getProfilInfo().subscribe(
         (result: any) => {
           this.user = result;
         })
     };
-
     this.travauxForm = this.fb.group({
       obj: ['', Validators.required],
       dd: ['', Validators.required],
@@ -66,22 +63,23 @@ export class ArtisanUpdateTravauxComponent implements OnInit {
     if (this.travail == null) {
       this.newTravaux = true;
     } else {
-      console.log(this.travail.objectif);
-      console.log(this.travail.date_debut);
-
       this.travauxForm.controls["obj"].setValue(this.travail.objectif); //this.user.nom
-      this.travauxForm.controls["dd"].setValue(formatDate(this.travail.date_debut,"yyyy-MM-dd","en-US"));
-      this.travauxForm.controls["df"].setValue(formatDate(this.travail.date_fin,"yyyy-MM-dd","en-US"));
+      this.travauxForm.controls["dd"].setValue(formatDate(this.travail.date_debut, "yyyy-MM-dd", "en-US"));
+      this.travauxForm.controls["df"].setValue(formatDate(this.travail.date_fin, "yyyy-MM-dd", "en-US"));
     }
   }
+
+  // display a message 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 2500,
     });
   }
 
+  // the getter of the job controler
   get job() { return this.travauxForm.controls; }
 
+  // validate the form
   validateForm() {
     this.submitted = true;
     if (!this.travauxForm.invalid) {
@@ -89,6 +87,7 @@ export class ArtisanUpdateTravauxComponent implements OnInit {
     }
   }
 
+  // send the data to the api server 
   async SaveForm() {
     const formData = this.travauxForm.getRawValue();
     const data = {
@@ -97,38 +96,33 @@ export class ArtisanUpdateTravauxComponent implements OnInit {
       dd: formData.dd
     }
     try {
+      let result;
       if (this.newTravaux) {
-        let result = await this.http.post<any>('http://localhost:8000/api/artisan/' + this.user.id + '/travaux', data).toPromise();
-
-        if (result.success) {
-          this.router.navigate(['/profil']);
-          this.dialog.closeAll();
-          this.dialog.open(ArtisanUpdateTravauxListComponent,
-            {
-              width: '600px',
-            });
+        result = await this.profilService.postTravaux(data, this.user.id);
+      } else {
+        result = await this.profilService.patchTravaux(data,this.travail.id);
+      }
+      if (result.success) {
+        this.router.navigate(['/profil']);
+        this.dialog.closeAll();
+        this.dialog.open(ArtisanUpdateTravauxListComponent,
+          {
+            width: '600px',
+          });
+        if (this.newTravaux) {
           this.openSnackBar("votre travail a bien été ajouté !", 'close');
         } else {
-          console.log(result.error);
-        }
-      } else {
-        let result = await this.http.patch<any>('http://localhost:8000/api/travaux/' + this.travail.id, data).toPromise();
-        console.log(result);
-        
-        if (result.success) {
-          this.router.navigate(['/profil']);
-          this.dialog.closeAll();
-          this.dialog.open(ArtisanUpdateTravauxListComponent,
-            {
-              width: '600px',
-            });
           this.openSnackBar("vos modifications ont été prises en compte !", 'close');
         }
+      } else {
+        console.log(result.error);
       }
     } catch (error) {
       console.log(error);
     }
   }
+
+  // the cancel fonction 
   annuler() {
     this.dialog.open(ArtisanUpdateTravauxListComponent,
       {

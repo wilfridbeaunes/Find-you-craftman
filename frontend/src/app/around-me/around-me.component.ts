@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriesProfessionellesService } from '../services/categories-professionnelles.service';
 
@@ -16,7 +16,7 @@ export class AroundMeComponent implements OnInit {
   defaultCodePostal = "";
 
   constructor(private router: Router, private route: ActivatedRoute, private catProService: CategoriesProfessionellesService) { }
-
+  //initialization
   ngOnInit(): void {
     this.getAllCategories();
     this.codePostal = this.route.snapshot.paramMap.get('cp');
@@ -32,7 +32,7 @@ export class AroundMeComponent implements OnInit {
       return false;
     };
   }
-
+  //submit the research form
   onSubmit(form: NgForm) {
     this.router.navigate(['research', form.value.cp, form.value.act]);
   }

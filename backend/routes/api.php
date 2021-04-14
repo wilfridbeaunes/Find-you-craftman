@@ -17,8 +17,6 @@ use App\Http\Controllers\CategorieProfessionelleController;
 |
 */
 //###########################POST REQUESTS###########################
-//route to get login data from the frontend
-Route::post('login',[UserController::class, 'autentification']);
 
 //route for user data typed from the frontend
 Route::post('signup',[UserController::class, 'inscription']);
@@ -49,6 +47,8 @@ Route::delete('delete/{compte}',[UserController::class, 'deleteCompte']);
 Route::delete('delete/travaux/{travaux}',[UserController::class, 'deleteTravaux']);
 
 //###########################GET REQUESTS###########################
+//route to get login data from the frontend
+Route::get('login',[UserController::class, 'autentification']);
 
 //route to check if a given email already exists in the database
 Route::get('exists',[UserController::class, 'exists']);

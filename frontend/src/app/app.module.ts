@@ -37,6 +37,7 @@ import { ArtisanUpdatePasswordComponent } from './userprofil/artisan-update-pass
 import { ArtisanUpdateTravauxComponent } from './userprofil/artisan-update-travaux/artisan-update-travaux.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ArtisanUpdateTravauxListComponent } from './userprofil/artisan-update-travaux-list/artisan-update-travaux-list.component';
+import { ProfilService } from './services/profil.service';
 
 
 
@@ -89,6 +90,7 @@ import { ArtisanUpdateTravauxListComponent } from './userprofil/artisan-update-t
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     CategoriesProfessionellesService,
     Authservice,
+    ProfilService
   ],
   bootstrap: [AppComponent]
 })

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Authservice } from '../../services/auth.service';
+import { ProfilService } from 'src/app/services/profil.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private authservice: Authservice) { }
+    private authservice: Authservice,
+    private profilService : ProfilService) { }
 
   //even when authentifation is fasle or true
   openSnackBar(message: string, action: string) {
@@ -45,7 +47,7 @@ export class LoginComponent implements OnInit {
     }
     //send my data to the backend server
     try {
-      let result = await this.http.post<any>('http://localhost:8000/api/login', data).toPromise();
+      let result = await this.profilService.getLogin(data);
       this.authservice.isConnected = result.success;      //boolean return to Authservice when user is connected or not
       this.authservice.userId = result.message.id;      //id return to Authservice when user is connected 
       if (result.success) {

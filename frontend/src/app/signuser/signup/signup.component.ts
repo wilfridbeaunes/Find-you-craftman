@@ -9,6 +9,7 @@ import { MustMatch } from 'src/app/helpers/match.validator';
 import { debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
 import { LocationService } from 'src/app/services/location.service';
 import { EmailExist } from 'src/app/helpers/email.validator';
+import { ProfilService } from 'src/app/services/profil.service';
 
 
 
@@ -41,7 +42,8 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar,
     private catProService: CategoriesProfessionellesService,
-    private locationService: LocationService) { }
+    private locationService: LocationService,
+    private profilService: ProfilService) { }
 
   //initialization
   ngOnInit(): void {
@@ -216,7 +218,7 @@ export class SignupComponent implements OnInit {
   // send all the data to the database to create an artisan
   sendData() {
     // I sent the value form my view to the backend for storage
-    this.http.post('http://localhost:8000/api/signup', this.data).subscribe(
+    this.profilService.postArtisan(this.data).subscribe(
       (result: any) => {
         if (result.success) {
           this.router.navigate(['login']); //we go to this route when the email is unuse

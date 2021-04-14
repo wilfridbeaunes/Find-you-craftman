@@ -9,6 +9,7 @@ import { Authservice } from 'src/app/services/auth.service';
 import { CategoriesProfessionellesService } from 'src/app/services/categories-professionnelles.service';
 import { LocationService } from 'src/app/services/location.service';
 import { ProfilInfosservice } from 'src/app/services/profil-infos.service';
+import { ProfilService } from 'src/app/services/profil.service';
 
 @Component({
   selector: 'app-artisan-update-bus-info',
@@ -34,10 +35,11 @@ export class ArtisanUpdateBusInfoComponent implements OnInit {
     public authservice: Authservice,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private profilService: ProfilInfosservice,
+    private infoService: ProfilInfosservice,
     private locationService: LocationService,
     private catProService: CategoriesProfessionellesService,
-    private matDialog: MatDialog) {
+    private matDialog: MatDialog,
+    private profileService : ProfilService) {
   }
 
   //display a message
@@ -61,7 +63,7 @@ export class ArtisanUpdateBusInfoComponent implements OnInit {
 
     if (this.authservice.userId != null) {
       //with this route, I sent the ID of the user connected
-      this.profilService.getProfilInfo().subscribe(
+      this.infoService.getProfilInfo().subscribe(
         (result: any) => {
           console.log(result);
           this.user = result;
@@ -70,7 +72,6 @@ export class ArtisanUpdateBusInfoComponent implements OnInit {
           this.entrepriseForm.controls["nom"].setValue(this.user.entreprise.nom);
           this.entrepriseForm.controls["addr"].setValue(this.user.entreprise.adresse.adresse_postale);
           this.entrepriseForm.controls["url"].setValue(this.user.entreprise.url);
-          // this.entrepriseForm.controls["logo"].setValue(this.user.entreprise.logo);
           this.entrepriseForm.controls["act"].setValue(this.user.professions[0].id);
         })
     };
@@ -153,7 +154,7 @@ export class ArtisanUpdateBusInfoComponent implements OnInit {
 
     //send my data to the backend server
     try {
-      let result = await this.http.patch<any>('http://localhost:8000/api/entreprise/' + this.entreprise.id + '/artisan/' + this.user.id, data).toPromise();
+      let result = await this.profileService.patchEntreprise(data, this.entreprise.id, this.user.id);
       if (result.success) {
         this.router.navigate(['profil']); //route when data was updated well 
         this.matDialog.closeAll();

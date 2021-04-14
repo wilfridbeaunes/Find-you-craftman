@@ -8,8 +8,6 @@ import {Authservice} from './services/auth.service';
 })
 export class AppComponent {
   constructor(public authservice: Authservice) {}
-
-    
 }
 
 

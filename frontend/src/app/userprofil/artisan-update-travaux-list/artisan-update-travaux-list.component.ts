@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Authservice } from 'src/app/services/auth.service';
 import { ProfilInfosservice } from 'src/app/services/profil-infos.service';
+import { ProfilService } from 'src/app/services/profil.service';
 import { ArtisanUpdateTravauxComponent } from '../artisan-update-travaux/artisan-update-travaux.component';
 
 @Component({
@@ -18,17 +19,18 @@ export class ArtisanUpdateTravauxListComponent implements OnInit {
   travaux= [];
 
   constructor(private authservice: Authservice,
-    private profilService: ProfilInfosservice,
+    private infoService: ProfilInfosservice,
     public dialog: MatDialog,
     private http: HttpClient,
     private router: Router,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private profilService: ProfilService) { }
 
   // initialization
   ngOnInit(): void {
     if (this.authservice.userId != null) {
       //with this route, I sent the ID of the user connected
-      this.profilService.getProfilInfo().subscribe(
+      this.infoService.getProfilInfo().subscribe(
         (result: any) => {
           this.user = result;
           this.travaux = this.user.travaux;
@@ -46,7 +48,7 @@ export class ArtisanUpdateTravauxListComponent implements OnInit {
   // send to the api server the id of the "travaux" to delete
   async deleteTravaux(id){
     try {
-      let result = await this.http.delete<any>('http://localhost:8000/api/delete/travaux/' + id).toPromise();
+      let result = await this.profilService.deleteTravaux(id);
       if (result.success) {
         this.router.navigate(['/profil']);
         this.dialog.closeAll();

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProfilInfosservice } from 'src/app/services/profil-infos.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ProfilService } from 'src/app/services/profil.service';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar,
     private matDialog: MatDialog,
-    private profiService: ProfilInfosservice) {
+    private infoService: ProfilInfosservice,
+    private profilService : ProfilService) {
   }
 
   //even when edit have been updated
@@ -47,7 +49,7 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
 
     if (this.authservice.userId != null) {
       //with this route, I sent the ID of the user connected
-      this.profiService.getProfilInfo().subscribe(
+      this.infoService.getProfilInfo().subscribe(
         (result: any) => {
           this.user = result;
           // Set the Values form edit
@@ -82,7 +84,7 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
     }
     //send my data to the backend server
     try {
-      let result = await this.http.patch<any>('http://localhost:8000/api/artisan/' + this.user.id, data).toPromise();
+      let result = await this.profilService.patchArtisan(data, this.user.id);
       if (result.success) {
         this.router.navigate(['profil']); //route when data was updated well 
         this.matDialog.closeAll();

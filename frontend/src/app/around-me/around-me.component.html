@@ -9,20 +9,21 @@
                         <form (ngSubmit)="onSubmit(f)" #f="ngForm">
                             <div class="form-group">
                                 <p class="lead" style="margin-bottom:0;padding-bottom:0;">Secteurs d'activités</p>
-                                <select class="form-control" id="activite" name="act"  [ngModel]="activite" required>
-                                 <option *ngFor="let cat of categories; let i=index"  value="{{i+1}}" title="cat.titre">{{cat.titre}}</option>
+                                <select class="form-control" id="activite" name="act" [ngModel]="activite" required>
+                                    <option *ngFor="let cat of categories; let i=index" value="{{i+1}}"
+                                        title="cat.titre">{{cat.titre}}</option>
                                 </select>
                             </div>
-
                             <div>
                                 <h2></h2>
                                 <p class="lead" style="margin-bottom:0;padding-bottom:0;">Code postal</p>
-                                <input class="form-control" name="cp" [ngModel]="defaultCodePostal" class="form-control" type="text" pattern="[0-9]{5}" ngModel required />
+                                <input class="form-control" name="cp" [ngModel]="defaultCodePostal" class="form-control"
+                                    type="text" pattern="[0-9]{5}" ngModel required />
                             </div>
                             <div>
                                 <br>
-                                
-                                <button class="btn btn-hg btn-primary" [disabled]="f.invalid" type="submit" style="background-color:#47566a;">Research</button>
+                                <button class="btn btn-hg btn-primary" [disabled]="f.invalid" type="submit"
+                                    style="background-color:#47566a;">Research</button>
                             </div>
                         </form>
                     </div>

@@ -22,7 +22,7 @@ class CreateTravauxTable extends Migration
 
             $table->foreign('artisan_id')
               ->references('id')
-              ->on('artisans');
+              ->on('artisans')->onDelete('cascade');;
         });
     }
 

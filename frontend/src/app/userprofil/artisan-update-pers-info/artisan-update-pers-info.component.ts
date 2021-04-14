@@ -84,7 +84,7 @@ export class ArtisanUpdatePersInfoComponent implements OnInit {
       if (result.success) {
         this.router.navigate(['profil']); //route when data was updated well 
         this.matDialog.closeAll();
-        this.openSnackBar(result.message, 'close');
+        this.openSnackBar("vos informations ont été mise a jour ! ", 'close');
       }
     } catch (error) {
       console.log('error login data share');

@@ -39,6 +39,9 @@ Route::post('entreprise/{entreprise}/artisan/{artisan}',[UserController::class, 
 //route to update travaux informations
 Route::post('travaux/{travaux}',[UserController::class, 'updateTravaux']);
 
+//route to update travaux informations
+Route::get('delete/{compte}',[UserController::class, 'deleteCompte']);
+
 
 //route to check if a given email already exists in the database
 Route::get('exists',[UserController::class, 'exists']);

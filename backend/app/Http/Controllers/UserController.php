@@ -232,4 +232,14 @@ class UserController extends Controller
         $compte->save();
         return response()->json(['success'=>true,'compte'=>$compte, 'error'=> null]);
     }
+    
+    public function deleteCompte(Compte $compte){
+        try{
+            $compte->delete();
+            return response()->json(['success'=>true, 'error'=>null]);
+        }catch(QueryException $e){
+            $err = $e->getMessage();
+            return response()->json(['success'=>false, 'error'=>"failure:$err"]);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Authservice } from 'src/app/services/auth.service';
@@ -14,7 +15,8 @@ export class DeleteAccountComponent implements OnInit {
   constructor(private http: HttpClient,
     public authservice: Authservice,
     private router: Router,
-    private _snackBar: MatSnackBar,) { }
+    private _snackBar: MatSnackBar,
+    private matDialog: MatDialog) { }
 
 
   //even when account is deleted
@@ -30,10 +32,12 @@ export class DeleteAccountComponent implements OnInit {
   async deleteAccount(){
     //send my data to the backend server
     try {                                                       //j'envoie a l'Api id de l'utilisateur qui est connecter 
-      let result = await this.http.post<any>('http://localhost:8000/api/artisan/delete', this.authservice.userId).toPromise();
+      let result = await this.http.get<any>('http://localhost:8000/api/delete/'+this.authservice.userId).toPromise();
       if (result.success) {
-        this.router.navigate(['/']); //route when data was updated well 
-        this.openSnackBar(result.message.msg, 'close');
+        this.router.navigate(['/']); //route   when data was updated well 
+        this.matDialog.closeAll();
+        this.authservice.isConnected= false;
+        this.openSnackBar("vos informations ont été mise a jour ! ", 'close');
       }
     } catch (error) {
       console.log('error login data share');

@@ -20,7 +20,7 @@ class CreatePhotosTable extends Migration
             
             $table->foreign('travaux_id')
                   ->references('id')
-                  ->on('travaux');
+                  ->on('travaux')->onDelete('cascade');;
         });
     }
 

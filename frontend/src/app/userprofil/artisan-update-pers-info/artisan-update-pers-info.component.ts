@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Authservice } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MustMatch } from 'src/app/helpers/match.validator';
 import { ProfilInfosservice } from 'src/app/services/profil-infos.service';
 import { MatDialog } from '@angular/material/dialog';
 

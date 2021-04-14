@@ -18,7 +18,22 @@ use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
+    public function getProfilInfos(Request $request){
+        $id= $request->input('id'); //id of the user connected 
 
+        $compte=Compte::find($id);
+        $artisan= $compte->artisan()->get()->first();
+        $artisan->entreprise;
+        $artisan->entreprise->adresse;
+        $artisan->compte;
+        $travaux=$artisan->travaux;
+        foreach ($travaux as $travail) {
+            $travail->photos;
+        }
+        $artisan->professions;
+        return response()->json($artisan);
+    }
+    
     public function autentification(Request $request){   //user authentifition fuction
 
         $user= null; //  initialisation
@@ -223,6 +238,7 @@ class UserController extends Controller
     
         return response()->json(['success'=>true,'travaux'=>$travaux, 'error'=> null]);
     }
+
     public function IsCurrentPassword(Request $request, Compte $compte){
         $same = password_verify($request->input('password'), $compte->password);
         return response()->json(['same'=>$same]);

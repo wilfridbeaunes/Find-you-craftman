@@ -55,7 +55,7 @@ export class ArtisanUpdatePasswordComponent implements OnInit {
     }
     //send my data to the backend server
     try {
-      let result = await this.http.post<any>('http://localhost:8000/api/compte/'+this.idService.userId, data).toPromise();
+      let result = await this.http.patch<any>('http://localhost:8000/api/compte/'+this.idService.userId, data).toPromise();
       if (result) {
         this.router.navigate(['profil']); //route when data was updated well 
         this.matDialog.closeAll();

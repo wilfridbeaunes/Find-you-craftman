@@ -32,7 +32,7 @@ export class DeleteAccountComponent implements OnInit {
   async deleteAccount(){
     //send my data to the backend server
     try {                                                       //j'envoie a l'Api id de l'utilisateur qui est connecter 
-      let result = await this.http.get<any>('http://localhost:8000/api/delete/'+this.authservice.userId).toPromise();
+      let result = await this.http.delete<any>('http://localhost:8000/api/delete/'+this.authservice.userId).toPromise();
       if (result.success) {
         this.router.navigate(['/']); //route   when data was updated well 
         this.matDialog.closeAll();

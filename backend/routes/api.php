@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\CategorieProfessionelleController;
-use App\Http\Controllers\UserInformationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +16,7 @@ use App\Http\Controllers\UserInformationController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+//###########################POST REQUESTS###########################
 //route to get login data from the frontend
 Route::post('login',[UserController::class, 'autentification']);
 
@@ -27,24 +26,29 @@ Route::post('signup',[UserController::class, 'inscription']);
 //route to create a new travaux
 Route::post('artisan/{artisan}/travaux',[UserController::class, 'newTravaux']);
 
+//###########################PATCH REQUESTS###########################
+
 //route to update compte informations
-Route::post('compte/{compte}',[UserController::class, 'updateCompte']);
+Route::patch('compte/{compte}',[UserController::class, 'updateCompte']);
 
 //route to update artisan informations
-Route::post('artisan/{artisan}',[UserController::class, 'updateArtisan']);
+Route::patch('artisan/{artisan}',[UserController::class, 'updateArtisan']);
 
 //route to update entreprise informations
-Route::post('entreprise/{entreprise}/artisan/{artisan}',[UserController::class, 'updateEntreprise']);
+Route::patch('entreprise/{entreprise}/artisan/{artisan}',[UserController::class, 'updateEntreprise']);
 
 //route to update travaux informations
-Route::post('travaux/{travaux}',[UserController::class, 'updateTravaux']);
+Route::patch('travaux/{travaux}',[UserController::class, 'updateTravaux']);
 
-//route to update travaux informations
-Route::get('delete/{compte}',[UserController::class, 'deleteCompte']);
+//###########################DELETE REQUESTS###########################
 
-//route to update travaux informations
+//route to delete a compte
+Route::delete('delete/{compte}',[UserController::class, 'deleteCompte']);
+
+//route to delete a travaux
 Route::delete('delete/travaux/{travaux}',[UserController::class, 'deleteTravaux']);
 
+//###########################GET REQUESTS###########################
 
 //route to check if a given email already exists in the database
 Route::get('exists',[UserController::class, 'exists']);
@@ -53,7 +57,7 @@ Route::get('exists',[UserController::class, 'exists']);
 Route::get('password/{compte}',[UserController::class, 'IsCurrentPassword']);
 
 //route to catch data of user from database
-route::get('profil',[UserInformationController::class, 'getProfilInfos']);
+route::get('profil',[UserController::class, 'getProfilInfos']);
 
 //route to get the local craftmans from database
 route::get('research',[ResearchController::class, 'getArtisans']);

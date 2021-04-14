@@ -101,6 +101,7 @@ export class ArtisanUpdateTravauxComponent implements OnInit {
         let result = await this.http.post<any>('http://localhost:8000/api/artisan/' + this.user.id + '/travaux', data).toPromise();
 
         if (result.success) {
+          this.router.navigate(['/profil']);
           this.dialog.closeAll();
           this.dialog.open(ArtisanUpdateTravauxListComponent,
             {
@@ -111,10 +112,11 @@ export class ArtisanUpdateTravauxComponent implements OnInit {
           console.log(result.error);
         }
       } else {
-        let result = await this.http.post<any>('http://localhost:8000/api/travaux/' + this.travail.id, data).toPromise();
+        let result = await this.http.patch<any>('http://localhost:8000/api/travaux/' + this.travail.id, data).toPromise();
         console.log(result);
         
         if (result.success) {
+          this.router.navigate(['/profil']);
           this.dialog.closeAll();
           this.dialog.open(ArtisanUpdateTravauxListComponent,
             {

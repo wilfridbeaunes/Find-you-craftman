@@ -44,6 +44,7 @@ export class ArtisanUpdateTravauxListComponent implements OnInit {
     try {
       let result = await this.http.delete<any>('http://localhost:8000/api/delete/travaux/' + id).toPromise();
       if (result.success) {
+        this.router.navigate(['/profil']);
         this.dialog.closeAll();
         this.dialog.open(ArtisanUpdateTravauxListComponent,
           {

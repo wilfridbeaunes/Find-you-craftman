@@ -1,10 +1,10 @@
 # Projet-PR71-Angular
 
-FrontEnd : Angular 
+**Frontend** : Angular 
 
-BackEnd (api): laravel 
+**Backend (api)**: laravel 
 
-Database : MySQL
+**Database** : MySQL
 
 ## Requirements 
   run those commandes : 
@@ -12,7 +12,7 @@ Database : MySQL
     npm install @angular/material @angular/cdk @angular/animations --save
     ng add @asymmetrik/ngx-leaflet
   
-**For the initialization of the database** 
+## Initialization of the database 
   on the laravel api, run :
     php artisan migrate      -----> create all the tables in the database
     php artisan db:seed      -----> to load the informations
